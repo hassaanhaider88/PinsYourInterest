@@ -1,19 +1,19 @@
 <% include ./partials/header.ejs %>
 <% include  ./NavBar.ejs ,{UserWhichLoggIn:UserWhichLoggIn,IsHome:false , IsCreate:false} %>
-<section class="relative w-full min-h-[100vh] mt-[90px] flex justify-center items-center ">
+<section class="relative w-full min-h-[100vh] sm:mt-[90px] mt-[200px] flex justify-center items-center ">
 <a href="/">
-  <div class="fixed  text-2xl left-3 top-32">
+  <div class="fixed  text-2xl left-3 sm:top-[135px] top-[150px]">
     <i class="font-bold ri-arrow-left-line"></i> <p class="inline ml-3">For you</p>
   </div>
 </a>
 
-<div id="PinContainer" class="w-[75%] h-[90vh] relative flex overflow-hidden  rounded-[30px] ">
+<div id="PinContainer" class="sm:w-[75%] w-[95%] min-h-[90vh] relative flex overflow-hidden sm:flex-row flex-col  rounded-[30px] ">
 
-<div id="PinPic" class="w-1/2  bg-black">
+<div id="PinPic" class="sm:w-1/2 w-full  bg-black">
           <img class="w-full h-full" src="<%=SltPin[0].imageUrl %>" alt="">
 </div>
 
-<div id="PinContent"  class="w-1/2 ">
+<div id="PinContent"  class="sm:w-1/2 w-full ">
 <!-- header div goes here  -->
   <div id="HeaderDivInner" class="w-full py-2  flex items-center sticky top-0">
     <!-- left likes waghera etc -->
@@ -31,7 +31,7 @@
     </div>
     <!-- profile and save btn  -->
 
-    <div class="w-1/2 flex mr-3 gap-3 justify-end items-center">
+    <div class="sm:w-1/2 w-full flex mr-3 gap-3 justify-end items-center">
       <div class="flex">
         <p>Profile</p>
      <div id="ProfileInfo" class="w-[20px] h-[20px] flex justify-center items-center duration-500 cursor-pointer ">
@@ -62,9 +62,9 @@
 </div>
 
 <!-- Links div         -->
-<div id="ShareDiv" class="absolute py-10 px-10 hidden  bg-white flex flex-col gap-3 shadow-lg rounded-[15px] right-[30%]  top-[14%]">
+<div id="ShareDiv" class="absolute py-10 px-10 hidden  bg-white flex flex-col gap-3 shadow-lg rounded-[15px] right-[30%]  top-[14%] ">
   <p class="text-[13px] text-center">Share</p>
-  <div id="SocialIcons" class="flex justify-between items-center px-1">
+  <div onclick='SharePIn()' id="SocialIcons" class="flex justify-between items-center px-1">
     <div id="CopyLink" class="w-[50px] h-[50px] flex justify-center items-center bg-[#E2E2E2] rounded-full">
       <i class="cursor-pointer text-3xl ri-link"></i>
     </div>
@@ -92,7 +92,7 @@
 </div>
 
 <!-- More option div  -->
-<div id="MoreOptDiv" class="hidden w-fit py-2 px-3 absolute bg-white right-[20%] top-[12%]  rounded-[10px] shadow-lg">
+<div id="MoreOptDiv" class="hidden w-fit py-2 px-3 absolute bg-white right-[20%] sm:top-[12%]  top-[35%] rounded-[10px] shadow-lg">
     <div>
     <p class="py-2 pl-3 cursor-pointer rounded-[15px] duration-200 hover:bg-[#E2E2E2]">
       <a href="#" download="<%= SltPin[0].imageUrl %>">Download Image</a>
@@ -199,7 +199,7 @@
 </div>
 
 <!-- the emojis section that contains emojies  -->
-<div id="EmojiDiv" class='absolute hidden top-[27%] w-1/2 z-50'>
+<div id="EmojiDiv" class='absolute hidden sm:top-[27%] sm:bottom-[100%] bottom-[8%] sm:w-1/2 w-full z-50'>
   <emoji-picker id="EmojiContainer"></emoji-picker>
   </div>
 
@@ -207,14 +207,14 @@
  
 <!-- the input where user can comment will be code goes here  -->
 <div>
-  <div id="CommentBar" class="absolute px-5 bottom-5 w-1/2">
+  <div id="CommentBar" class="absolute px-5 bottom-5 ">
     <div id="commentDiv" class="px-2 border-[1px] border-[#E1E1E1] mt-3 rounded-full overflow-hidden w-full items-center flex">
-      <div style="width: 270%;"  id="SearchArea">
+      <div  id="SearchArea">
         <form id="CommentForm" method="post" action="/pin/comment?pinId=<%=SltPin[0]._id %>">
-          <input id="Search" value='' spellcheck="false" name="Comment" class=" w-[100%]   outline-none p-[12px]" type="search" placeholder="Add a comment">
+          <input id="Search" value='' spellcheck="false" name="Comment" class="h-[50px] w-[250px]   outline-none p-[12px]" type="search" placeholder="Add a comment">
         </form>
       </div>
-      <div id="EmojiIcon" class="mr-2 w-[60px] h-[60px] cursor-pointer">
+      <div id="EmojiIcon" class="mr-2 w-[40px] h-[40px] cursor-pointer">
         <img class="w-full h-full " src="../images/Comment-E.svg" alt="">
       </div>
       <!-- Send icon will be shown when suer just write atleast one charactor   -->
@@ -234,105 +234,31 @@
 
 <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/dist/date-fns.min.js"></script>
 <script>
-//   var HeartEmj=document.getElementById('HeartEmj');
-//   var Emojis=document.getElementById('Emojis');
-//   var IsEmojisShow=false;
-//   HeartEmj.addEventListener('click',()=>{
-//     if(IsEmojisShow){
-//       Emojis.classList.add('hidden');
-//       Emojis.classList.remove('block')
-//       IsEmojisShow=false;
-//     }else{
-//       Emojis.classList.add('block');
-//       Emojis.classList.remove('hidden')
-//       IsEmojisShow=true;
-//       Emojis.addEventListener('click',(e)=>{
-//  let SlecetImg=e.target.getAttribute('src');
-//         HeartEmj.innerHTML=`<div class="w-[40px] h-[40px] cursor-pointer  duration-500 ">
-//               <img  class="w-full h-full" src=${SlecetImg} alt="">
-//             </div> `;
-//        fetch('/pin/inc_likes', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({
-//             imgSrc: SlecetImg // You can send any data you want with this request
-//         })
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         console.log('Success:', data); // Handle success
-//     })
-//       Emojis.classList.add('hidden');
-//       Emojis.classList.remove('block')
-//       IsEmojisShow=false;
+  var HeartEmj=document.getElementById('HeartEmj');
+  var Emojis=document.getElementById('Emojis');
+  var IsEmojisShow=false;
+  HeartEmj.addEventListener('click',()=>{
+    if(IsEmojisShow){
+      Emojis.classList.add('hidden');
+      Emojis.classList.remove('block')
+      IsEmojisShow=false;
+    }else{
+      Emojis.classList.add('block');
+      Emojis.classList.remove('hidden')
+      IsEmojisShow=true;
+      Emojis.addEventListener('click',(e)=>{
+ let SlecetImg=e.target.getAttribute('src');
+        HeartEmj.innerHTML=`<div class="w-[40px] h-[40px] cursor-pointer  duration-500 ">
+              <img  class="w-full h-full" src=${SlecetImg} alt="">
+            </div> `;
+      Emojis.classList.add('hidden');
+      Emojis.classList.remove('block')
+      IsEmojisShow=false;
 
-//       })
-//     }
-//   });
+      })
+    }
+  });
 
-
-var HeartEmj = document.getElementById('HeartEmj');
-var Emojis = document.getElementById('Emojis');
-var IsEmojisShow = false;
-
-// Event listener for HeartEmj click
-HeartEmj.addEventListener('click', () => {
-  if (IsEmojisShow) {
-    hideEmojis();
-  } else {
-    showEmojis();
-  }
-});
-
-// Event listener for Emojis click (set up once)
-Emojis.addEventListener('click', (e) => {
-  // Get the selected emoji image source
-  let SlecetImg = e.target.getAttribute('src');
-  if (!SlecetImg) return; // Avoid errors if clicked on something other than an image
-
-  // Set the inner HTML of HeartEmj
-  HeartEmj.innerHTML = `
-    <div class="w-[40px] h-[40px] cursor-pointer duration-500">
-      <img class="w-full h-full" src="${SlecetImg}" alt="">
-    </div>`;
-
-  // Make a POST request after setting the innerHTML
-  fetch('/pin/inc_likes', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      imgSrc: SlecetImg // You can send any data you want with this request
-    })
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data); // Handle success
-    })
-    .catch((error) => {
-      console.error('Error:', error); // Handle error
-    });
-
-  // Hide emojis after selecting one
-  hideEmojis();
-});
-
-// Function to show emojis
-function showEmojis() {
-  Emojis.classList.add('block');
-  Emojis.classList.remove('hidden');
-  IsEmojisShow = true;
-}
-
-// Function to hide emojis
-function hideEmojis() {
-  Emojis.classList.add('hidden');
-  Emojis.classList.remove('block');
-  IsEmojisShow = false;
-}
 
 
   var ShareDiv=document.getElementById('ShareDiv');
@@ -498,6 +424,16 @@ ReplyBtn.forEach((replyBtn)=>{
   })
 })
 
+const SharePIn = () => {
+  var Full_shareUri = window.location.href;
+  window.navigator.clipboard.writeText(Full_shareUri)
+    .then(() => {
+      alert("Copied to Clipboard...");
+    })
+    .catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+};
 
 </script>
 <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>

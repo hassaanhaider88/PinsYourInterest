@@ -11,8 +11,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 router.get('/create',ShowCreatePin);
 
-var Full_shareUri = window.location;
-console.log(Full_shareUri);
+
 
 // ([a-zA-Z0-9]+) this is becuase the /create route also capture by :pin_id 
 router.get('/:pin_id([a-zA-Z0-9]+)', ShowSinglePin);

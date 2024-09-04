@@ -1,6 +1,6 @@
 <% include ./partials/header.ejs %>
 <% include ./NavBar.ejs ,{UserWhichLoggIn:UserWhichLoggIn , IsHome: false , IsCreate: true}%>
-<section id="PinCreationDev" class="mt-[120px]">
+<section id="PinCreationDev" class="sm:mt-[120px] mt-[140px]">
   <div class="w-full min-h-[100vh] bg-black border-t-[1px] border-gray-300  flex justify-between items-cente">
     <div class="LeftManuBar w-[30%] border-r-[1px] border-gray-300 bg-white">
          <div style="font-weight: 300;" class="flex  px-4 py-2 justify-between items-cente">
@@ -11,7 +11,7 @@
           <button class="w-full py-2 bg-[#E2E2E2] rounded-full">Create new</button>
          </div>
 
-         <div  id="DraftPins" class="flex w-full px-5 flex-col gap-1">
+         <div  id="DraftPins" class="flex overflow-x-scroll w-full px-5 flex-col gap-1">
           <% CreatedPost.forEach((post,ind)=>{ %>
 
           <div class="Draft relative flex rounded-[10px]  duration-500 hover:border-black      justify-between    px-8 cursor-pointer items-center  hover:bg-[#E2E2E2]">
@@ -43,7 +43,7 @@
                 <div class="flex px-3 min-h-[100vh] overflow-x-scroll  flex-col justify-center items-center">
              <div style="width:100%;" class="h-[90vh] flex flex-col justify-center items-cenrter">
                   <div id="PinPic" class="w-full bg-white h-[80%]  ">
-                     <div id="Upload" class="w-[40%] overflow-hidden  cursor-pointer shrink-0 bg-[#E9E9E9] outline-dashed outline-[1px] outline-[#DADADA] relative px-3 flex justify-center items-cenrter flex-col text-center my-3 m-auto h-[90%] rounded-[40px]">
+                     <div id="Upload" class="w-[90%] sm:w-[40%] overflow-hidden  cursor-pointer shrink-0 bg-[#E9E9E9] outline-dashed outline-[1px] outline-[#DADADA] relative px-3 flex justify-center items-cenrter flex-col text-center my-3 m-auto h-[90%] rounded-[40px]">
                       <div><i class="text-4xl text-center block ri-arrow-up-circle-fill"></i></div>
                       <p class="font-[400] mt-2">Chosse a file or drag and drop <br> it here</p>
 
@@ -55,26 +55,23 @@
                      </div>
                     </div> 
                      <div class="relative shrink-0 left-[28%] my-3 inline py-3">
-                      <div class="py-5 w-[40%]  text-center border-t-[2px] border-gray-300">
+                      <div class="py-5 w-[60%] sm:w-[40%]  text-center border-t-[2px] border-gray-300">
                         <h1 class="text-[19px] font-[300] bg-gray-200 cursor-pointer hover:bg-[#E2E2E2] duration-200  rounded-full py-2">Save from URL</h1>
                        </div>
                      </div>
                     
           </div> 
                 
-                  <div id="PinContent" class="w-[60%] ">
+                  <div id="PinContent" class="w-[90%] sm:w-[60%] ">
                     <div id="PinContentForm" >
                       <form action="/pin/create_pin" method="post" enctype="multipart/form-data" >
                         <input  type="file" id="FormClick" name="pinPic" accept="image/*" class="hidden">
                         <label class="text-[11px] font-[100]" for="title">Title</label><br>
                         <input class=" border-[1px] border-gray-400 rounded-[10px] outline-none py-2 w-full text-lg pl-2" type="text" placeholder="Add a title" required name="title"> <br>
                         <label class="text-[11px] font-[100]" for="description">Description</label><br>
-                        <textarea placeholder="Add a detailed description" type="text" class=" border-[1px] border-gray-400 rounded-[10px] outline-none py-2 w-full text-lg pl-2 resize-none" required name="Desc"></textarea> <br>
+                        <textarea  spellcheck="false" placeholder="Add a detailed description" type="text" class=" border-[1px] border-gray-400 rounded-[10px] outline-none py-2 w-full text-lg pl-2 resize-none" required name="Desc"></textarea> <br>
                         <label class="text-[11px] mt-5 block -mb-5 font-[100]" for="link">Link</label><br>
-                        <input placeholder="Add a link" type="text" class=" border-[1px] border-gray-400 rounded-[10px] outline-none py-2 w-full text-lg pl-2" required name="link"> <br>
-                        <!-- <label class="text-[11px] font-[100]" for="board">Board</label><br>
-                        <input placeholder="Choose a board" type="text" class=" border-[1px] border-gray-400 rounded-[10px] outline-none py-2 w-full text-lg pl-2" required name="borad">
-                        <br> -->
+                        <input  spellcheck="false"  placeholder="Add a link" type="text" class=" border-[1px] border-gray-400 rounded-[10px] outline-none py-2 w-full text-lg pl-2" required name="link"> <br>
                         <input id="DropDownInput" onclick="DropDown()" type="text" class='py-3 mt-4 pl-2 w-[65%] text-[#929191] cursor-pointer border-[1px] border-[#929191] mb-4  outline-none rounded-[15px] pr-2' placeholder="Select Height Here " required name="ImgHeight">
                         <div id="DropDownDiv" class="w-[55%] hidden  py-2 cursor-pointer bg-white absolute rounded-[20px] shadow-lg h-[250px] overflow-scroll overflow-x-hidden">
                           <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="ey-em">200px</div>
@@ -89,19 +86,19 @@
                           </div>
 <br>
                         <label class="text-[11px] font-[100]" for="tags">Tagged Topics(0)</label><br>
-                        <input placeholder="Search for tags" type="text" class=" border-[1px] border-gray-400 rounded-[10px] outline-none py-2 w-full text-lg pl-2" required name="tags"> <br>
+                        <input spellcheck="false" placeholder="Search for tags" type="text" class=" border-[1px] border-gray-400 rounded-[10px] outline-none py-2 w-full text-lg pl-2" required name="tags"> <br>
                         <p class="text-[11px] font-[100] py-1">Don't worry, people won't see your tags</p>
                         <div id='Tags'  class="w-full cursor-pointer flex gap-2 items-center py-1">
                           <div   class="py-2 px-3  flex gap-1 bg-black rounded-full text-white font-semibold">
-                            <p>tag1</p>
+                            <p>Coding</p>
                             <i class="ri-close-line cursor-pointer CloseTag "></i>
                           </div>
                           <div class="py-2 px-3  flex gap-1 bg-black rounded-full text-white font-semibold">
-                            <p>tag1</p>
+                            <p>Gaming</p>
                             <i class="ri-close-line cursor-pointer CloseTag "></i>
                           </div>
                           <div class="py-2 px-3  flex gap-1 bg-black rounded-full text-white font-semibold">
-                            <p>tag1</p>
+                            <p>Singing</p>
                             <i class="ri-close-line cursor-pointer CloseTag "></i>
                           </div>
                         </div>

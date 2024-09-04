@@ -1,9 +1,9 @@
 <% include ./partials/header.ejs %>
 <% include  ./NavBar.ejs , {UserWhichLoggIn:UserWhichLoggIn,IsHome:false , IsCreate:false}  %>
 <section id="EditSection" class="w-full min-h-[100vh] mt-[120px] ">
-<div class="w-full flex" >
+<div class="w-full flex sm:flex-row flex-col" >
 
-<div class="LeftSide h-full px-8 pt-5 flex flex-col gap-2 py-4 w-[25%] " >
+<div class="LeftSide h-full px-8 pt-5 flex flex-col gap-2 py-4 md:w-[25%] sm:w-[35%] w-[70%] " >
     
 <div class="hover:bg-[#E9E9E9] duration-200   cursor-pointer w-full rounded-[10px]   p-2">
   <a href="/user/edit"><p class="font-[500]">Edit profile</p></a>
@@ -37,7 +37,7 @@
   <p class="font-[500]">Brand Content</p>
 </div>
   </div>
-  <div class="RightSide w-[70%] ">
+<div class="RightSide w-[100%] sm:w-[70%]  ">
        
          <h1 class="text-3xl mt-5">Edit profile</h1>
          <p>Keep your personal details private. Information you add here is <br> visible to anyone who can view your profile.</p>

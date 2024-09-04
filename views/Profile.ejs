@@ -1,7 +1,7 @@
 <% include ./partials/header.ejs %>
 <% include  ./NavBar.ejs {UserWhichLoggIn, IsHome: false , IsCreate: false} %>
 <!-- Profile section  -->
-<section class="w-full relative mt-[120px]">
+<section class="w-full relative sm:mt-[120px] mt-[160px]">
 
   <!-- the hidden file select form goes here  -->
   <form id="profileForm" action="/user/upload_profile"  onchange="uploadProfilePic()" method="POST" enctype="multipart/form-data" >
@@ -54,14 +54,14 @@
       <p><span><%- UserProfile.followers.length %></span> followers</p>
     </div>
      <div id="BTNS">
-       <button id="ShareBtn" class="py-3 px-4 rounded-full bg-[#E2E2E2]">Share</button>
+       <button id="ShareBtn" class="py-3 relative z-90 px-4 rounded-full bg-[#E2E2E2]">Share</button>
        <% if(IsAuth){ %>
         <a href="/user/edit">
         <button class="py-3 px-4 rounded-full bg-[#E2E2E2]">Edit Profile</button>
        </a>
       <% } else { %>
         <a href="/user/follow_user/<%=UserProfile._id%>">
-         <button class="py-3 px-4 rounded-full bg-[#E2E2E2]">
+         <button class="py-3 px-4  rounded-full bg-[#E2E2E2]">
            <% if(IsFollow === false || IsFollow === undefined){ %>
              follow
            <% } else { %> 
@@ -90,7 +90,7 @@
 <!-- share profile options show here on share click btn  -->
 <div id="ShareDiv" class="absolute py-10 px-10   flex flex-col gap-3 shadow-lg hidden top-10 left-[15%]">
   <p class="text-[13px] text-center">Share</p>
-  <div id="SocialIcons" class="flex justify-between items-center px-1">
+  <div onclick="ShareUserProfile()" id="SocialIcons" class="flex justify-between items-center px-1">
     <div id="CopyLink" class="w-[50px] h-[50px] flex justify-center items-center bg-[#E2E2E2] rounded-full">
       <i class="cursor-pointer text-3xl ri-link"></i>
     </div>
@@ -168,10 +168,10 @@
 <!-- savaed post section  -->
 <section id="SavedSection" class="w-full    relative  min-h-[70vh] ">
 <div id="TwoIcons" class="w-full flex justify-between items-center py-3 px-10 ">
-  <div id="FilterBtn" class="w-[40px] h-[40px] flex justify-center items-center cursor-pointer rounded-full duration-200 hover:bg-[#F0F0F0]">
-    <i class=" text-2xl ri-equalizer-3-fill"></i>
+  <div id="FilterBtn" class="w-[40px] h-[40px]   flex justify-center items-center cursor-pointer rounded-full duration-200 hover:bg-[#F0F0F0]">
+    <i class="relative z-90 text-2xl ri-equalizer-3-fill"></i>
   </div>
-  <div id="AddBtn" class="w-[40px] h-[40px] flex justify-center items-center cursor-pointer rounded-full duration-200 hover:bg-[#F0F0F0]">
+  <div id="AddBtn" class="w-[40px] h-[40px] relative z-90 flex justify-center items-center cursor-pointer rounded-full duration-200 hover:bg-[#F0F0F0]">
     <i class=" text-3xl ri-add-fill"></i>
   </div>
 </div>
@@ -199,7 +199,7 @@
 </div>
 
 <!-- Add options will show on click goes  div here  -->
-<div id="AddDiv" class="hidden w-[10%] py-2 absolute -top-[15%] right-2 rounded-[10px] shadow-lg">
+<div id="AddDiv" class="hidden sm:w-[10%] w-[25%] py-2 absolute -top-[15%] right-2 rounded-[10px] shadow-lg">
   <div>
     <p class="text-[13px]">Create</p>
     <div>
@@ -331,6 +331,17 @@ if(isFliterDivShow){
   SavdedBtn.classList.add('block');
   SavdedBtn.classList.remove('hidden');
  }
+ const ShareUserProfile = () => {
+  var Full_shareUri = window.location.href;
+  window.navigator.clipboard.writeText(Full_shareUri)
+    .then(() => {
+      alert("Copied to Clipboard...");
+    })
+    .catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+};
+
 </script>
 </body>
 </html>
