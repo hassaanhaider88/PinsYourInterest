@@ -1,0 +1,242 @@
+<% include ./partials/header.ejs %>
+<section>
+  <nav style="z-index: 100;position:fixed; top: 0px; " class="w-full relative  px-6 fixed top-0 py-5 bg-white  flex justify-between items-center">
+    <div class="LeftNav flex items-center gap-6">
+      <a href="">
+        <div class="flex justify-center items-center gap-1">
+          <img class="inline" src="../images/Logo.svg" alt="">
+        </div>
+      </a>
+      <div>
+        <% if(IsHome){ %>
+          <%- console.log(IsHome,"Is Home in if ") %>
+        <a id="Home" href="/"  class="py-3 bg-black text-white duration-500 hover:scale-[0.92] rounded-full px-4  font-semibold">Home</a>
+     <% } else { %>
+      <%- console.log(IsHome,"Is Home in else") %>
+      <a id="Home" href="/"  class="py-3 duration-500 hover:scale-[0.92] rounded-full px-4  font-semibold">Home</a>
+    <% } %>
+
+    <% if(IsCreate){ %>
+      <%- console.log(IsCreate,"Is Create in if") %>
+      <a id="Create" class="py-4 duration-500 bg-black text-white hover:scale-[0.92] rounded-full px-4  font-semibold" href="/pin/create">Create</a>
+   <% } else { %>
+    <%- console.log(IsCreate,"Is Create in else") %>
+    <a id="Create" class="py-4 duration-500 hover:scale-[0.92] rounded-full px-4  font-semibold" href="/pin/create">Create</a>
+  <% } %>
+
+      <!-- <a id="Create" class="py-4 duration-500 hover:scale-[0.92] rounded-full px-4  font-semibold" href="/pin/create">Create</a> -->
+    </div>
+  </div>
+  <div id="SearchDiv" class="px-2 bg-[#E1E1E1] hidden md:flex  rounded-full overflow-hidden basis-1/2 items-center  ">
+    <div id="SearchIcon" class="">
+      <i class="text-[#767676] font-[500] text-[20px] ri-search-line"></i>
+    </div>
+    <div class=""  id="SearchArea">
+      <input style="width: 270%;" class="bg-[#E1E1E1] outline-none p-[12px]" type="search" placeholder="Search">
+    </div>
+  </div>
+  <div class="RightNav  flex items-center gap-3">
+    <div id="Notify" class="w-[50px] h-[50px] flex justify-center items-center duration-500 cursor-pointer hover:bg-gray-300 rounded-full">
+      <svg style="width:35px;height:35px;" stroke="currentColor" fill="#767676" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 480a80.09 80.09 0 0 0 73.3-48H182.7a80.09 80.09 0 0 0 73.3 48zm144-192v-60.53C400 157 372.64 95.61 304 80l-8-48h-80l-8 48c-68.88 15.61-96 76.76-96 147.47V288l-48 64v48h384v-48z"></path></svg>
+    </div>
+    <div id="MSG" class="w-[50px] h-[50px] flex justify-center items-center duration-500 cursor-pointer hover:bg-gray-300 rounded-full">
+      <svg stroke="currentColor" fill="#767676" stroke-width="0" viewBox="0 0 1024 1024" height="33px" width="33px" xmlns="http://www.w3.org/2000/svg"><path d="M924.3 338.4a447.57 447.57 0 0 0-96.1-143.3 443.09 443.09 0 0 0-143-96.3A443.91 443.91 0 0 0 512 64h-2c-60.5.3-119 12.3-174.1 35.9a444.08 444.08 0 0 0-141.7 96.5 445 445 0 0 0-95 142.8A449.89 449.89 0 0 0 65 514.1c.3 69.4 16.9 138.3 47.9 199.9v152c0 25.4 20.6 46 45.9 46h151.8a447.72 447.72 0 0 0 199.5 48h2.1c59.8 0 117.7-11.6 172.3-34.3A443.2 443.2 0 0 0 827 830.5c41.2-40.9 73.6-88.7 96.3-142 23.5-55.2 35.5-113.9 35.8-174.5.2-60.9-11.6-120-34.8-175.6zM312.4 560c-26.4 0-47.9-21.5-47.9-48s21.5-48 47.9-48 47.9 21.5 47.9 48-21.4 48-47.9 48zm199.6 0c-26.4 0-47.9-21.5-47.9-48s21.5-48 47.9-48 47.9 21.5 47.9 48-21.5 48-47.9 48zm199.6 0c-26.4 0-47.9-21.5-47.9-48s21.5-48 47.9-48 47.9 21.5 47.9 48-21.5 48-47.9 48z"></path></svg>
+    </div>
+    <div  class="w-[50px] h-[50px] flex justify-center items-center duration-500 hover:bg-gray-300 overflow-hidden rounded-full">
+      <a href="/user/<%=UserWhichLoggIn._id%>">
+        <div id="Profile" class="w-[40px] h-[40px] flex justify-center items-center  overflow-hidden rounded-full">
+          <!-- <img class="w-full h-full relative top-2" src="../images/Profile.png" alt=""> -->
+    <% if (UserWhichLoggIn && UserWhichLoggIn.profileImgUri) { %>
+            <img class="w-full h-full object-cover" src="<%= UserWhichLoggIn.profileImgUri %>" alt="Profile Image">
+    <% } else { %>
+          <div id="DP" class="bg-gray-300 w-[70px] flex justify-center items-center h-[70px]">
+            <% if (UserWhichLoggIn && UserWhichLoggIn.profilePicture) { %>
+                <span><%- UserWhichLoggIn.profilePicture %></span>
+            <% } %>
+      <% } %>
+        </div>
+        
+        </div>
+      </a>
+    </div>
+    <div id="ProfileInfo" class="w-[20px] h-[20px] flex justify-center items-center duration-500 cursor-pointer hover:bg-gray-300  rounded-full ">
+      <i class="text-3xl text-[#767676] ri-arrow-drop-down-line"></i>
+    </div>
+  </div>
+</nav>
+<!-- Notification Section Start from here -->
+<div id="Notification" class="hidden absolute right-0 flex flex-col pt-10 items-center w-1/4 h-[85vh] bg-white rounded-[20px] z-[100] mr-2">
+  <h1 class="text-[20px] text-[#111111] font-[400]">Updates</h1>
+<img src="../images/Notify.svg" alt="">
+<h1 class="text-[20px] text-[#111111] font-[400]">Nothing to see here (yet)!</h1>
+<p class="text-md text-center font-[400] text-gray-700">Try exploring your home feed, creating a <br> board, or following someone with ideas that inspire you.</p>
+</div>
+
+
+<!-- Messaeges section start from here -->
+<div id="Messages" class="hidden px-2 absolute right-0 flex flex-col pt-10  items-center sm:w-1/3 w-1/2 md:w-1/4 h-[85vh] bg-white rounded-[20px] z-[100] mr-2">
+  <div class="w-full flex justify-between items-center px-4 md:px-7" >
+    <h1 class="w-[30px]"></h1>
+    <h1 class="text-[20px] text-[#111111] font-[400]">Inbox</h1>
+    <div onclick="" class="w-[40px] h-[40px] flex justify-center cursor-pointer items-center p-1 
+    duration-200  hover:bg-[#F0F0F0] rounded-full"><i class="text-xl font-semibold ri-more-line"></i></div>
+  </di>
+</div>
+<div id="SearchDiv" class="px-2 border-[1px] border-[#E1E1E1] mx-3 mt-3 rounded-full overflow-hidden w-full items-center  flex">
+  <div id="SearchIcon" class="">
+    <i class="text-[#767676] font-[500] text-[20px] ri-search-line"></i>
+  </div>
+  <div style="width: 270%;"  id="SearchArea">
+    <input  class=" w-[100%]   outline-none p-[12px]" type="search" placeholder="Search by name or email">
+  </div>
+</div>
+
+<div class="flex hover:bg-[#E9E9E9] duration-200  cursor-pointer w-full rounded-[15px] items-center mt-4 gap-2 p-2">
+  <div class="w-[50px] h-[50px] bg-[#E60023] flex justify-center items-center rounded-full">
+<img src="../images/Edit.svg" alt="">
+  </div>
+  <h1>New message</h1>
+</div>
+
+<div class="flex hover:bg-[#E9E9E9] duration-200  cursor-pointer w-full rounded-[15px] items-center mt-4 gap-2 p-2">
+  <div class="w-[50px] h-[50px] bg-[#DADADA] flex justify-center items-center rounded-full">
+<img src="../images/Profile.svg" alt="">
+  </div>
+  <div class="flex flex-col">
+  <h1 class="font-[600]">Invites your frinds</h1>
+  <p class="text-gray-500">Connenct to start chatting</p>
+</div>
+</div>
+</div>
+<!-- Drop down Profile Option Start from here with Abbrivation of  DDPO-->
+<div id="DDPO" class="hidden text-left px-1 overflow-scroll overflow-x-hidden absolute right-0 flex flex-col   sm:w-1/3 w-1/2 md:w-1/4 h-[90vh] bg-white rounded-[20px] z-[100] mr-2">
+  <p class=" font-[300] text-sm pt-1 ml-2">Currently in</p>
+  <a href="/user/me">
+  <div class="flex hover:bg-[#E9E9E9] duration-200   cursor-pointer w-full rounded-[15px] items-center mt-1 gap-2 p-2">
+      <div id="DP" class="bg-gray-300 w-[50px] h-[50px] overflow-hidden rounded-full ">
+        <% if (UserWhichLoggIn && UserWhichLoggIn.profileImgUri) { %>
+          <img class="w-full h-full object-cover" src="<%= UserWhichLoggIn.profileImgUri %>" alt="Profile Image">
+        <% } else { %>  
+        <% if (UserWhichLoggIn && UserWhichLoggIn.profilePicture) { %>
+            <span><%- UserWhichLoggIn.profilePicture %></span>
+        <% } else { %>
+            <span>PP</span>
+        <% } %>
+<% } %>       
+    </div>
+    <div class="flex flex-col">
+    <h1 class="font-[500]"><%= UserWhichLoggIn.username %></h1>
+    <p class="text-gray-500">Personal</p>
+    <p class="text-gray-500 text-nowrap"><%= UserWhichLoggIn.email %></p>
+  </div>
+  <h1><i class="font-bold ri-check-line"></i></h1>
+  </div>
+</a>
+  <p class=" font-[300] text-sm pt-1 ml-2">More Options</p>
+
+<div class="hover:bg-[#E9E9E9] duration-200   cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Settings</p>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200   cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Home feed tuner</p>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200   cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Install the Windows app</p>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200   cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Reports and violations center</p>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200   cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Your privacy rights</p>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200 flex justify-between items-center  cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Teen safety rosources</p>
+  <div><i class="font-semibold ri-external-link-fill"></i></div>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200 flex justify-between items-cente  cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Help center</p>
+  <div><i class="font-semibold ri-external-link-fill"></i></div>
+
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200 flex justify-between items-cente  cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Terms of service</p>
+  <div><i class="font-semibold ri-external-link-fill"></i></div>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200 flex justify-between items-cente  cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Privacy policy</p>
+  <div><i class="font-semibold ri-external-link-fill"></i></div>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200  flex justify-between items-cente cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Be a beta tester</p>
+  <div><i class="font-semibold ri-external-link-fill"></i></div>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200   cursor-pointer w-full rounded-[10px]   p-2">
+  <a href="/user/logout"><p class="font-[500]">Log out</p></a>
+</div>
+</div>
+</section>
+</body>
+<script>
+  var isNotifyShow=false;
+document.getElementById('Notify').addEventListener('click',()=>{
+  if(isNotifyShow){
+    document.getElementById('Notification').classList.add('hidden');
+    isNotifyShow=false;
+  }else{
+    document.getElementById('Notification').classList.add('block');
+    document.getElementById('Notification').classList.remove('hidden');
+    isNotifyShow=true;
+  }
+  
+})
+var IsMSGShow=false;
+document.getElementById('MSG').addEventListener('click',()=>{
+  if(IsMSGShow){
+    document.getElementById('Messages').classList.add('hidden');
+    IsMSGShow=false;
+  }else{
+    document.getElementById('Messages').classList.add('block');
+    document.getElementById('Messages').classList.remove('hidden');
+    IsMSGShow=true;
+  }
+})
+
+var isDDPOShow=false;
+document.getElementById('ProfileInfo').addEventListener('click',()=>{
+  if(isDDPOShow){
+    document.getElementById('DDPO').classList.add('hidden');
+    isDDPOShow=false;
+  }else{
+    document.getElementById('DDPO').classList.add('block');
+    document.getElementById('DDPO').classList.remove('hidden');
+    isDDPOShow=true;
+  }
+});
+
+var Home= document.getElementById('Home');
+var Create = document.getElementById('Create');
+Home.addEventListener('click',IsHome);
+Create.addEventListener('click',()=>{
+  Create.classList.add('bg-black');
+  Create.classList.add('text-white');
+  Create.classList.remove('text-black');
+  Home.classList.remove('bg-black');
+  Home.classList.remove('text-white');
+  Home.classList.add('text-black')
+});
+function IsHome(){
+  Home.classList.add('bg-black');
+  Home.classList.add('text-white');
+  Home.classList.remove('text-black')
+  Create.classList.remove('bg-black');
+  Create.classList.remove('text-white');
+  Create.classList.add('text-black')
+}
+// IsHome();
+
+
+const UserWhichLoggIn = <%- JSON.stringify(UserWhichLoggIn) %>
+cosnole.log(UserWhichLoggIn);
+
+</script>
+</html>

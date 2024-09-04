@@ -1,0 +1,82 @@
+body{
+  overflow-x:hidden;  
+}
+html{
+  scroll-behavior: smooth;
+}
+
+*{
+user-select:none;
+box-sizing: border-box;
+}
+#FirstSlide{
+bottom: -30px;
+}
+
+#SecondSlide{
+bottom:-150px;
+opacity: 0;
+}
+
+#ThirdSlide{
+  bottom:-150px;
+  opacity: 0;
+} 
+
+#FourSlide{
+bottom:-150px;
+opacity: 0;
+}
+
+
+.Draft:hover .TripleDots {
+      display: block;
+}
+
+#PinContainer{
+box-shadow:1px 1px 30px #8f8c8c; 
+}
+#HeartEmj:hover #Emojis{
+display: block;
+}
+emoji-picker {
+  width: 100%;
+  height: 300px;
+  overflow-x: hidden;
+  overflow: scroll;
+
+}
+
+
+#ProfileImg{
+  width: 100vw;
+  height: 100vh;
+  background: #666464;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ProfileContainer{
+  /* width:100%;
+  height: 50px; */
+  border-radius: 100%;
+  background: transparent;
+  overflow: hidden;
+  transition: 1.2s;
+  cursor: pointer;
+}
+.ProfileContainer:hover{
+  scale: 0.97;
+}
+.dynamicUser{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  font-weight: 400;
+  color: rgb(60, 63, 60);
+  text-shadow: 6px 2px 3px gray;
+  user-select: none;
+}

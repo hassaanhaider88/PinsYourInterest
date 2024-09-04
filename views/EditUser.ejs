@@ -1,0 +1,155 @@
+<% include ./partials/header.ejs %>
+<% include  ./NavBar.ejs , {UserWhichLoggIn:UserWhichLoggIn,IsHome:false , IsCreate:false}  %>
+<section id="EditSection" class="w-full min-h-[100vh] mt-[120px] ">
+<div class="w-full flex" >
+
+<div class="LeftSide h-full px-8 pt-5 flex flex-col gap-2 py-4 w-[25%] " >
+    
+<div class="hover:bg-[#E9E9E9] duration-200   cursor-pointer w-full rounded-[10px]   p-2">
+  <a href="/user/edit"><p class="font-[500]">Edit profile</p></a>
+  <div class="h-[2px] bg-black w-[30%]"></div>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200   cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Acount management</p>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200   cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Profile visibility</p>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200   cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Tune your home feed</p>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200   cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Claimed acounts</p>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200 flex justify-between items-center  cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Social permissions</p>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200 flex justify-between items-cente  cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Notifications</p>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200 flex justify-between items-cente  cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Privacy and data</p>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200 flex justify-between items-cente  cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Security</p>
+</div>
+<div class="hover:bg-[#E9E9E9] duration-200  flex justify-between items-cente cursor-pointer w-full rounded-[10px]   p-2">
+  <p class="font-[500]">Brand Content</p>
+</div>
+  </div>
+  <div class="RightSide w-[70%] ">
+       
+         <h1 class="text-3xl mt-5">Edit profile</h1>
+         <p>Keep your personal details private. Information you add here is <br> visible to anyone who can view your profile.</p>
+         <p class="mt-3 text-sm">Photo</p>
+       <div id="PhotoCO" class="flex gap-2 items-center">
+        <div id="DP" class="bg-gray-300 w-[70px] h-[70px] overflow-hidden rounded-full ">
+          <% if (UserWhichLoggIn && UserWhichLoggIn.profileImgUri) { %>
+            <img class="w-full h-full object-cover" src="<%= UserWhichLoggIn.profileImgUri %>" alt="Profile Image">
+          <% } else { %>  
+          <% if (UserWhichLoggIn && UserWhichLoggIn.profilePicture) { %>
+              <span><%- UserWhichLoggIn.profilePicture %></span>
+          <% } else { %>
+              <span>PP</span>
+          <% } %>
+  <% } %>       
+      </div>
+        <div>
+          <button disabled class="py-3 cursor-not-allowed px-4 rounded-full bg-[#E2E2E2]">Change</button>
+        </div>
+       </div>
+
+ <!-- form data does here  -->
+ <form id="Form"  class="px-2 mt-5 relative" action="/user/save_changes" method="Post">
+<div class="flex  gap-2 justify-between w-[65%]">
+  <div class="w-full">
+    <label  for='FirstName' class="text-[13px] ">First name</label> <br>
+  <input type='text' spellcheck="false" class='py-2 border-[1px] border-[#929191] pl-2 w-full my-2 outline-none rounded-[15px]' required name="firstName" value="<%=UserWhichLoggIn.firstName %>" placeholder='Required.....'> <br>
+  </div>
+
+  <div class="w-full">
+    <label class="text-[13px] " for='LastName'>Last name</label> <br>
+  <input type='text' spellcheck="false" class='py-2 border-[1px] border-[#929191] pl-2 w-full my-2 outline-none rounded-[15px]' required name="lastName" value="<%=UserWhichLoggIn.lastName %>" placeholder='Required.....'> <br>  
+  </div>
+</div>
+<label class="text-[13px] " for='Aboute'>About</label> <br>
+<textarea type='text' spellcheck="false" required class='py-2 border-[1px] border-[#929191] border-[1px] my-3 resize-none border-[#929191] pl-2 w-[65%] outline-none rounded-[15px]' name="aboutMe"  placeholder='Tell your story'><%= UserWhichLoggIn.aboutMe %></textarea> <br>
+<label class="text-[13px] " for="pronounse">Pronounse</label> <br>
+<div id="DropDownInput" onclick="DropDown()" type="text" class='py-3 pl-2 w-[65%] text-[#929191] cursor-pointer border-[1px] border-[#929191] outline-none rounded-[15px] pr-2'><p class="text-[#929191]">Add your pronounse</p></div>
+  
+<!-- custom drop down menus code goes here  -->
+<div id="DropDownDiv" class="w-[55%] hidden py-2 cursor-pointer bg-white absolute rounded-[20px] shadow-lg h-[250px] overflow-scroll overflow-x-hidden">
+<div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="ey-em">ey/em</div>
+  <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="he-him">he/him</div>
+  <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="ne-nem">ne/nem</div>
+  <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="she-her">she/her</div>
+  <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value='they-them'>they/them</div>
+  <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value='ve-ver'>ve/ver</div>
+  <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="xe-xem">xe/xem</div>
+  <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="xie-xem">xie/xem</div>
+  <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="ze-zir">ze/zir</div>
+</div>
+<p class="text-[14px] text-gray-500">Choose up to 2 sets of pronouns to appear on your profile so others know how to refer to <br> you. You can edit or remove these any time.</p>
+<label class="text-[13px] " for='websiteLink'>Website</label> <br>
+  <input type='link' spellcheck="false" class='py-3 border-[1px] border-[#929191] my-2 pl-2 w-[65%] outline-none rounded-[15px]' required value="<%=UserWhichLoggIn.websiteUri %>" name="websiteUri" placeholder='Add a link to drive trafic to your site'> <br> 
+  <label class="text-[13px] " for='userName'>Username</label> <br>
+  <input oninput="ProfileUri(event)" type='text' spellcheck="false" class='py-3 border-[1px] border-[#929191] my-2 pl-2 w-[65%] outline-none rounded-[15px]' required name="username"  placeholder='Choose wisley so others can find you' value="<%=UserWhichLoggIn.username %>"> <br>  
+  <p id="ProfileUriLive" class="text-[14px] text-gray-500"></p> 
+  <div class="h-[200px] w-[100%]"></div>
+ </form>
+
+
+  </div>
+</div>
+
+<footer id="FooterInEdit" class="w-full text-gray-500 bg-white fixed bottom-0 py-3 flex justify-center items-center gap-3">
+  <div> 
+    <button id="ResetBtn" class="py-3 px-4 rounded-full bg-[#E2E2E2]">Reset</button>
+  </div>
+  <div>
+    <button id="SaveBtn" class="py-3 px-4 rounded-full bg-blue-600 text-white">Save</button>
+  </div>
+</footer>
+</section>
+
+
+<script>
+  var DropDownDiv = document.getElementById('DropDownDiv');
+  var DropDownInput = document.getElementById('DropDownInput');
+  IsDropDownShow=false;
+  const DropDown=()=>{
+     if(IsDropDownShow){
+      DropDownDiv.classList.add('hidden');
+      DropDownDiv.classList.remove('block');
+      IsDropDownShow= false;
+    }else{
+      DropDownDiv.classList.add('block');
+      DropDownDiv.classList.remove('hidden');
+      IsDropDownShow= true;
+      DropDownDiv.addEventListener('click',(e)=>{
+        // console.log(e.target.innerText)
+        var SelectText=e.target.innerText;
+        DropDownInput.innerText=SelectText;
+        DropDownDiv.classList.add('hidden');
+        DropDownDiv.classList.remove('block');
+        IsDropDownShow= false;
+
+      })
+    }
+  }
+  document.getElementById('ResetBtn').addEventListener('click', () => {
+  document.getElementById('Form').reset(); // Resets all form fields to their default values
+});
+
+const ProfileUri=(e)=>{
+  let Uri = e.target.value.split(' ').join('_').toLowerCase();
+  document.getElementById('ProfileUriLive').innerHTML=`www.pinsyourinterest.com/${Uri}`;
+}
+
+document.getElementById('SaveBtn').addEventListener('click',()=>{
+  document.getElementById('Form').submit();
+})
+
+</script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<% include ./partials/header.ejs %>
+<% include  ./NavBar.ejs {UserWhichLoggIn, IsHome: false , IsCreate: false} %>
+<!-- Profile section  -->
+<section class="w-full relative mt-[120px]">
+
+  <!-- the hidden file select form goes here  -->
+  <form id="profileForm" action="/user/upload_profile"  onchange="uploadProfilePic()" method="POST" enctype="multipart/form-data" >
+    <input id='ProfilePicSelect' name='profile' class="hidden" type="file" >
+  </form>
+
+  <!-- profile div info with img  -->
+<div class="centerDiv flex flex-col  justify-center items-center">
+ 
+  <% if(IsAuth) {%>
+    <div id="Profile" onclick="ChosseProfile()" class="ProfilePic bg-[#F5F5F5] flex justify-center items-center cursor-pointer rounded-full p-2 overflow-hidden w-[120px] h-[120px]">
+      <div  class="flex justify-center items-center  overflow-hidden rounded-full">
+  <% if (UserProfile && UserProfile.profileImgUri) { %>
+          <img class="w-full h-full object-cover" src="<%= UserProfile.profileImgUri %>" alt="Profile Image">
+  <% } else { %>
+        <div id="DP" class="w-[120px] h-[120px]">
+          <% if (UserProfile && UserProfile.profilePicture) { %>
+              <span><%- UserProfile.profilePicture %></span>
+          <% } else { %>
+              <span>PP</span>
+          <% } %>
+    <% } %>
+      </div>
+      </div>
+    </div>
+  <% } else { %>
+    <div id="Profile" class="ProfilePic bg-[#F5F5F5] flex justify-center items-center cursor-pointer rounded-full p-2 overflow-hidden w-[120px] h-[120px]">
+      <div  class="flex justify-center items-center  overflow-hidden rounded-full">
+  <% if (UserProfile && UserProfile.profileImgUri) { %>
+          <img class="w-full h-full object-cover" src="<%= UserProfile.profileImgUri %>" alt="Profile Image">
+  <% } else { %>
+        <div id="DP" class="w-[120px] h-[120px]">
+          <% if (UserProfile && UserProfile.profilePicture) { %>
+              <span><%- UserProfile.profilePicture %></span>
+          <% }  %>
+    <% } %>
+      </div>
+      
+      </div>
+    </div>
+<%  } %>
+
+  <div class="ProfileInfo flex flex-col justify-center items-center gap-2  text-center">
+    <h1 class="text-4xl"><%=UserProfile.username  %></h1>
+<div>
+  <i class="text-[#767676] text-[18px] ri-pinterest-fill"></i><p class="inline text-[14px] ml-2 text-[#767676]"><%= UserName %></p>
+</div>
+    <div class="flex gap-5">
+      <p><span><%- UserProfile.following.length %></span> following</p>
+      <p><span><%- UserProfile.followers.length %></span> followers</p>
+    </div>
+     <div id="BTNS">
+       <button id="ShareBtn" class="py-3 px-4 rounded-full bg-[#E2E2E2]">Share</button>
+       <% if(IsAuth){ %>
+        <a href="/user/edit">
+        <button class="py-3 px-4 rounded-full bg-[#E2E2E2]">Edit Profile</button>
+       </a>
+      <% } else { %>
+        <a href="/user/follow_user/<%=UserProfile._id%>">
+         <button class="py-3 px-4 rounded-full bg-[#E2E2E2]">
+           <% if(IsFollow === false || IsFollow === undefined){ %>
+             follow
+           <% } else { %> 
+             following
+          <% } %>
+         </button>
+        </a>
+     <% } %>
+
+     </div>
+  </div>
+</div>
+
+<!-- Created and save post button div  -->
+<div class="w-full font-[500] flex justify-center items-center gap-5 py-5 mt-10">
+  <button onclick="CreatedPinShow()">
+    <p>Created</p>
+    <div id="CreateBtn" class="line hidden  h-[2px] bg-black"></div>
+  </button>
+  <button onclick="SavedPinShow()">
+    <p>Saved</p>
+    <div id="SavdedBtn" class="line h-[2px] bg-black"></div>
+  </button>
+</div>
+
+<!-- share profile options show here on share click btn  -->
+<div id="ShareDiv" class="absolute py-10 px-10   flex flex-col gap-3 shadow-lg hidden top-10 left-[15%]">
+  <p class="text-[13px] text-center">Share</p>
+  <div id="SocialIcons" class="flex justify-between items-center px-1">
+    <div id="CopyLink" class="w-[50px] h-[50px] flex justify-center items-center bg-[#E2E2E2] rounded-full">
+      <i class="cursor-pointer text-3xl ri-link"></i>
+    </div>
+    <div class="w-[50px] h-[50px] flex justify-center items-center  rounded-full" id="Whatsapp" >
+      <i class="cursor-pointer text-[#25D366] text-5xl ri-whatsapp-fill"></i>
+    </div>
+    <div class="w-[50px] h-[50px] flex justify-center items-center border-[1px] border-black  rounded-full" id="Messenger">
+      <i class="cursor-pointer text-[#D343BB] text-3xl ri-messenger-fill"></i>
+    </div>
+    <div class="w-[50px] h-[50px] flex justify-center items-center  rounded-full" id="Facebook">
+      <i class="cursor-pointer text-5xl text-[#1877F2] ri-facebook-circle-fill"></i>
+    </div>
+  </div>
+  <hr class="mt-8">
+  <div id="SearchBar">
+    <div id="SearchDiv" class="px-2 border-[1px] border-[#E1E1E1] mt-3 rounded-full overflow-hidden w-full items-center  flex">
+      <div id="SearchIcon" class="">
+        <i class="text-[#767676] font-[500] text-[20px] ri-search-line"></i>
+      </div>
+      <div style="width: 270%;"  id="SearchArea">
+        <input  class=" w-[100%]   outline-none p-[12px]" type="search" placeholder="Search by name or email">
+      </div>
+    </div>
+  </div>
+</div>
+
+</section>
+<!-- there will two sections CreatedSection will shown when user request or createdSection shwon when user request  -->
+<section id="CreatedSection" class="w-full hidden absolute min-h-[70vh] ">
+<!-- here goes over condition if user have  any Created post then this post goes here other wise text no post like shown  -->
+</div> -->
+<% if(CreatedPost.length < 1) { %> 
+  <div id="NoPost" class="w-full mt-10 flex justify-center items-center gap-2 flex-col">
+    <p class="text-[18px] font-[100]">Nothing to show...yet! Pins
+      <% if(IsAuth){ %>
+       you create 
+      <% } %>
+      will live here.
+      </p>
+    <a href="/pin/create">
+      <% if(IsAuth){ %>
+        <a href="/user/edit">
+          <button class="py-3 px-4 rounded-full text-white bg-[#B60000]">Create Pin</button>
+       </a>
+      <% } else { %>
+        <a href="/">
+        <button class="py-3 px-4 rounded-full text-white bg-[#B60000]">Explore More</button>
+        </a>
+      <% } %>
+    </a>
+  </div>
+  <% } else { %>
+    <div id="IfSavedPost" class="  ">
+    <div class="w-full  px-10  flex gap-5 justify-between">
+      <div class="container">
+     <% CreatedPost.forEach((post)=>{ %>
+      <a href='/pin/<%=post._id %>'>
+      <div class="card overflow-hidden  bg-none " style="height: <%= post.ImgHeight %>;">
+        <img class="w-full h-full bg-c" src="<%=post.imageUrl %>" alt="">
+        <span  style="background:rgba(0, 0, 0, 0.5);" class="overLay opacity-0 p-6  flex flex-col justify-end items-end w-full  z-20   h-full absolute bg-[rgba(0, 0, 0, 0.308)] top-0 right-0">
+        <div class="UploadAnd mb-3 mr-2 flex justify-center items-center gap-2">
+          <div class="w-[30px] h-[30px] flex justify-center items-center p-1 bg-white rounded-full"><i class="text-xl font-semibold ri-upload-2-fill"></i></div>
+          <div  class="w-[30px] h-[30px] flex justify-center items-center p-1 bg-white rounded-full"><i class="text-xl font-semibold ri-pencil-fill"></i></div>
+        </div>
+        </span>
+    </div>
+  </a>
+    <% }) %>
+<% } %>
+
+
+
+</section>
+
+<!-- savaed post section  -->
+<section id="SavedSection" class="w-full    relative  min-h-[70vh] ">
+<div id="TwoIcons" class="w-full flex justify-between items-center py-3 px-10 ">
+  <div id="FilterBtn" class="w-[40px] h-[40px] flex justify-center items-center cursor-pointer rounded-full duration-200 hover:bg-[#F0F0F0]">
+    <i class=" text-2xl ri-equalizer-3-fill"></i>
+  </div>
+  <div id="AddBtn" class="w-[40px] h-[40px] flex justify-center items-center cursor-pointer rounded-full duration-200 hover:bg-[#F0F0F0]">
+    <i class=" text-3xl ri-add-fill"></i>
+  </div>
+</div>
+
+<!-- Filter Options will show on click goes div here  -->
+<div id="FliterDiv" class="hidden w-fit py-2 px-3 absolute -top-[30%] rounded-[10px] shadow-lg">
+  <div>
+    <p class="text-[13px]">Sort by</p>
+    <div>
+    <p class="py-2 pl-3 cursor-pointer rounded-[15px] duration-200 hover:bg-[#E2E2E2]">A to Z</p>
+    </div>
+    <div>
+      <p class="py-2 pl-3 cursor-pointer rounded-[15px] duration-200 hover:bg-[#E2E2E2]">Custom</p>
+    </div>
+    <div>
+      <p class="py-2 pl-3 cursor-pointer rounded-[15px] duration-200 hover:bg-[#E2E2E2]">Last Pin Added</p>
+    </div>
+  </div>
+  <div>
+    <p class="text-[13px]">Profile layout</p>
+    <div>
+      <p class="py-2 pl-3 cursor-pointer rounded-[15px] duration-200 hover:bg-[#E2E2E2]">Edit board visibility</p>
+    </div>
+  </div>
+</div>
+
+<!-- Add options will show on click goes  div here  -->
+<div id="AddDiv" class="hidden w-[10%] py-2 absolute -top-[15%] right-2 rounded-[10px] shadow-lg">
+  <div>
+    <p class="text-[13px]">Create</p>
+    <div>
+    <p class="py-2 pl-3 cursor-pointer rounded-[15px] duration-200 hover:bg-[#E2E2E2]">Pin</p>
+    </div>
+    <div>
+      <p class="py-2 pl-3 cursor-pointer rounded-[15px] duration-200 hover:bg-[#E2E2E2]">Board</p>
+    </div>
+  </div>
+</div>
+<!-- here goes over condition if user have  any saved post then this post goes here other wise text no post like shown  -->
+
+<% if (SavedPost.length < 1) { %>
+  <div id="NoPost" class="w-full flex justify-center items-center gap-2 flex-col">
+    <p class="text-[18px] font-[100]">
+      <% if(IsAuth){ %>
+        You 
+       <% } %>
+       <% if(IsAuth){ %>
+        haven't
+       <% } else{ %>
+          Haven't
+      <% } %>
+       saved any Pins yet</p>
+    <a href="/">
+      <button class="py-3 px-4 rounded-full bg-[#E2E2E2]">Find ideas</button>
+    </a>
+  </div>
+<% } else { %>
+  
+  <div id="IfSavedPost" >
+    <div class="w-full px-10 flex gap-5 justify-between">
+      <div class="container">
+        <% SavedPost.forEach(post => { %>
+          <div class="card overflow-hidden bg-none" style="height: 350px;">
+            <img class="w-full h-full bg-c" src="<%= SavedPost[0].imageUrl %>" alt="">
+            <span style="background:rgba(0, 0, 0, 0.5);" class="overLay opacity-0 p-6 flex flex-col justify-end items-end w-full z-20 h-full absolute bg-[rgba(0, 0, 0, 0.308)] top-0 right-0">
+              <div class="UploadAnd mb-3 mr-2 flex justify-center items-center gap-2">
+                <div class="w-[30px] h-[30px] flex justify-center items-center p-1 bg-white rounded-full">
+                  <i class="text-xl font-semibold ri-upload-2-fill"></i>
+                </div>
+                <div class="w-[30px] h-[30px] flex justify-center items-center p-1 bg-white rounded-full">
+                  <i class="text-xl font-semibold ri-pencil-fill"></i>
+                </div>
+              </div>
+            </span>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+<% } %>
+
+
+</section>
+<script>
+
+const ChosseProfile=()=>{
+  document.getElementById('ProfilePicSelect').click()
+}
+const uploadProfilePic=()=> {
+    const form = document.getElementById('profileForm');
+    form.submit();  
+  }
+
+  var ShareDiv=document.getElementById('ShareDiv');
+  var isShareShow=false;
+  document.getElementById('ShareBtn').addEventListener('click',()=>{
+if(isShareShow){
+  ShareDiv.classList.add('hidden');
+  ShareDiv.classList.remove('block');
+  isShareShow=false;
+}else{
+  ShareDiv.classList.add('block');
+  ShareDiv.classList.remove('hidden');
+  isShareShow=true;
+}
+  })
+  var FilterDiv = document.getElementById('FliterDiv');
+  var isFliterDivShow=false;
+  var AddDiv = document.getElementById('AddDiv');
+  var isAddDivShow = false;
+ document.getElementById('FilterBtn').addEventListener('click',()=>{
+if(isFliterDivShow){
+  FilterDiv.classList.add('hidden');
+  FilterDiv.classList.remove('block');
+  isFliterDivShow=false;
+}else{
+  FilterDiv.classList.add('block');
+  FilterDiv.classList.remove('hidden');
+  isFliterDivShow=true;
+}
+ });
+
+ document.getElementById('AddBtn').addEventListener('click',()=>{
+  if(isAddDivShow){
+    AddDiv.classList.add('hidden');
+    AddDiv.classList.remove('block');
+    isAddDivShow=false;
+  }else{
+    AddDiv.classList.add('block');
+    AddDiv.classList.remove('hidden');
+    isAddDivShow=true;
+  }
+ });
+
+ var CreatedSection=document.getElementById('CreatedSection');
+ var SavedSection=document.getElementById('SavedSection');
+ var CreateBtn=document.getElementById('CreateBtn');
+ var SavdedBtn = document.getElementById('SavdedBtn');
+
+ const CreatedPinShow=()=>{
+  CreatedSection.classList.remove('hidden');
+  CreatedSection.classList.add('block');
+  SavedSection.classList.add('hidden');
+  SavedSection.classList.remove('block');
+  CreateBtn.classList.add('block');
+  CreateBtn.classList.remove('hidden');
+  SavdedBtn.classList.add('hidden');
+  SavdedBtn.classList.remove('block');
+ };
+ const SavedPinShow=()=>{
+  CreatedSection.classList.remove('block');
+  CreatedSection.classList.add('hidden');
+  SavedSection.classList.add('block');
+  SavedSection.classList.remove('hidden');
+  CreateBtn.classList.add('hidden');
+  CreateBtn.classList.remove('block');
+  SavdedBtn.classList.add('block');
+  SavdedBtn.classList.remove('hidden');
+ }
+</script>
+</body>
+</html>

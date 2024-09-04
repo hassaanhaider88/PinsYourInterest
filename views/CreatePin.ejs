@@ -1,0 +1,270 @@
+<% include ./partials/header.ejs %>
+<% include ./NavBar.ejs ,{UserWhichLoggIn:UserWhichLoggIn , IsHome: false , IsCreate: true}%>
+<section id="PinCreationDev" class="mt-[120px]">
+  <div class="w-full min-h-[100vh] bg-black border-t-[1px] border-gray-300  flex justify-between items-cente">
+    <div class="LeftManuBar w-[30%] border-r-[1px] border-gray-300 bg-white">
+         <div style="font-weight: 300;" class="flex  px-4 py-2 justify-between items-cente">
+          <h1 class="text-[25px] font-[300]">Pin drafts</h1>
+          <div class="w-[40px] h-[40px] flex justify-center items-center duration-500 cursor-pointer hover:bg-gray-300  rounded-full "><i class="text-[25px] font-[300] ri-arrow-left-double-line"></i></div>
+         </div>
+         <div class="px-5 py-2 border-b-[1px] mt-3 mb-3 border-gray-300">
+          <button class="w-full py-2 bg-[#E2E2E2] rounded-full">Create new</button>
+         </div>
+
+         <div  id="DraftPins" class="flex w-full px-5 flex-col gap-1">
+          <% CreatedPost.forEach((post,ind)=>{ %>
+
+          <div class="Draft relative flex rounded-[10px]  duration-500 hover:border-black      justify-between    px-8 cursor-pointer items-center  hover:bg-[#E2E2E2]">
+            <i class="ri-checkbox-blank-line"></i>
+            <a href="/pin/<%=post._id%>">
+            <img class="w-[70px] h-[90px]" src="<%=post.imageUrl %>" alt="">
+          </a>
+            <p class="text-[12px] text-gray-400 text-nowrap"><%= post.Title %></p>
+            <div onclick="TripleDotsClick(<%= ind %>)" class="TripleDots  hidden w-[35px] h-[35px] flex justify-center items-center duration-500 cursor-pointer hover:bg-gray-300 px-1  rounded-full "><i class="text-[25px] font-[500] ri-more-line"></i></div>
+      <!-- more options when user click  -->
+      <div  class="MoreOptDiv hidden absolute right-0 top-[75%] rounded-[15px] flex bg-white p-2 flex-col justify-center items-cenrter">
+        <div class="hover:bg-gray-300 rounded-[9px]">
+        <p class="Py-3 px-2 font-[700] text-[17px]">Duplicate</p>
+        </div>
+        <div class="hover:bg-gray-300 rounded-[9px]">
+              <p class="Py-3 px-2 font-[700] text-[17px]">Delete</p>
+        </div>
+      </div>
+
+          </div>
+<% }) %>
+         </div>
+    </div>
+    <div class="RightCreationDiv w-[70%] bg-white">
+             <div class="py-5 border-b-[2px] border-gray-300">
+              <h1 class="text-[26px] font-[300] ml-2 ">Create Pin</h1>
+              
+             </div>
+                <div class="flex px-3 min-h-[100vh] overflow-x-scroll  flex-col justify-center items-center">
+             <div style="width:100%;" class="h-[90vh] flex flex-col justify-center items-cenrter">
+                  <div id="PinPic" class="w-full bg-white h-[80%]  ">
+                     <div id="Upload" class="w-[40%] overflow-hidden  cursor-pointer shrink-0 bg-[#E9E9E9] outline-dashed outline-[1px] outline-[#DADADA] relative px-3 flex justify-center items-cenrter flex-col text-center my-3 m-auto h-[90%] rounded-[40px]">
+                      <div><i class="text-4xl text-center block ri-arrow-up-circle-fill"></i></div>
+                      <p class="font-[400] mt-2">Chosse a file or drag and drop <br> it here</p>
+
+                     
+                       
+                     
+
+                      <p class="absolute bottom-2 text-sm font-[300]">We recommended using high quality .jpg file less than 20MB or .mp4 file less than 200MB.</p>
+                     </div>
+                    </div> 
+                     <div class="relative shrink-0 left-[28%] my-3 inline py-3">
+                      <div class="py-5 w-[40%]  text-center border-t-[2px] border-gray-300">
+                        <h1 class="text-[19px] font-[300] bg-gray-200 cursor-pointer hover:bg-[#E2E2E2] duration-200  rounded-full py-2">Save from URL</h1>
+                       </div>
+                     </div>
+                    
+          </div> 
+                
+                  <div id="PinContent" class="w-[60%] ">
+                    <div id="PinContentForm" >
+                      <form action="/pin/create_pin" method="post" enctype="multipart/form-data" >
+                        <input  type="file" id="FormClick" name="pinPic" accept="image/*" class="hidden">
+                        <label class="text-[11px] font-[100]" for="title">Title</label><br>
+                        <input class=" border-[1px] border-gray-400 rounded-[10px] outline-none py-2 w-full text-lg pl-2" type="text" placeholder="Add a title" required name="title"> <br>
+                        <label class="text-[11px] font-[100]" for="description">Description</label><br>
+                        <textarea placeholder="Add a detailed description" type="text" class=" border-[1px] border-gray-400 rounded-[10px] outline-none py-2 w-full text-lg pl-2 resize-none" required name="Desc"></textarea> <br>
+                        <label class="text-[11px] mt-5 block -mb-5 font-[100]" for="link">Link</label><br>
+                        <input placeholder="Add a link" type="text" class=" border-[1px] border-gray-400 rounded-[10px] outline-none py-2 w-full text-lg pl-2" required name="link"> <br>
+                        <!-- <label class="text-[11px] font-[100]" for="board">Board</label><br>
+                        <input placeholder="Choose a board" type="text" class=" border-[1px] border-gray-400 rounded-[10px] outline-none py-2 w-full text-lg pl-2" required name="borad">
+                        <br> -->
+                        <input id="DropDownInput" onclick="DropDown()" type="text" class='py-3 mt-4 pl-2 w-[65%] text-[#929191] cursor-pointer border-[1px] border-[#929191] mb-4  outline-none rounded-[15px] pr-2' placeholder="Select Height Here " required name="ImgHeight">
+                        <div id="DropDownDiv" class="w-[55%] hidden  py-2 cursor-pointer bg-white absolute rounded-[20px] shadow-lg h-[250px] overflow-scroll overflow-x-hidden">
+                          <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="ey-em">200px</div>
+                            <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="he-him">250px</div>
+                            <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="ne-nem">350px</div>
+                            <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="she-her">420px</div>
+                            <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value='they-them'>290px</div>
+                            <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value='ve-ver'>440px</div>
+                            <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="xe-xem">500px</div>
+                            <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="xie-xem">530px</div>
+                            <div class="bg-white text-black py-2 pl-3 rounded-[15px] hover:bg-[#EFEFEF]" value="ze-zir">390px</div>
+                          </div>
+<br>
+                        <label class="text-[11px] font-[100]" for="tags">Tagged Topics(0)</label><br>
+                        <input placeholder="Search for tags" type="text" class=" border-[1px] border-gray-400 rounded-[10px] outline-none py-2 w-full text-lg pl-2" required name="tags"> <br>
+                        <p class="text-[11px] font-[100] py-1">Don't worry, people won't see your tags</p>
+                        <div id='Tags'  class="w-full cursor-pointer flex gap-2 items-center py-1">
+                          <div   class="py-2 px-3  flex gap-1 bg-black rounded-full text-white font-semibold">
+                            <p>tag1</p>
+                            <i class="ri-close-line cursor-pointer CloseTag "></i>
+                          </div>
+                          <div class="py-2 px-3  flex gap-1 bg-black rounded-full text-white font-semibold">
+                            <p>tag1</p>
+                            <i class="ri-close-line cursor-pointer CloseTag "></i>
+                          </div>
+                          <div class="py-2 px-3  flex gap-1 bg-black rounded-full text-white font-semibold">
+                            <p>tag1</p>
+                            <i class="ri-close-line cursor-pointer CloseTag "></i>
+                          </div>
+                        </div>
+                        <p class="text-lg font-[500] py-3">Tag Products</p>
+                        <input type="submit" class="font-[300] bg-gray-200 cursor-pointer hover:bg-[#E2E2E2] duration-200  rounded-full p-2" value="Add Products">
+                      </form>
+                      <div id="AdvanceOPTDiv">
+                     <h1 onclick="AdvanceOptsShow()" class="text-xl py-2 font-[300] cursor-pointer">More options <i class=" text-2xl ri-arrow-drop-down-line"></i></h1>
+                     <div id="AdvanceOpts" class="hidden">
+         <div id="OPTOne" class="relative flex gap-2 cursor-pointer" >
+           <div id="OuterOne" class="h-[22px] w-[55px] border-[1px] border-gray-400 rounded-full bg-[#EFEFEF]">
+          <div id="InnerOne" class="h-[22px]  w-[22px] border-[1px] border-gray-400 duration-500  absolute -top-[0px] rounded-full bg-white"></div>
+          </div>
+        <div class="text-gray-400">
+          <p>Allow peoples to comment</p>
+        <p>Comments are turned off in Social Primssions</p>
+        </div>
+         </div>
+         <div id="OPTTwo" class="relative flex gap-2 cursor-pointer" >
+          <div id="OuterTwo" class="h-[22px] w-[60px] border-[1px] border-gray-400 rounded-full bg-[#EFEFEF]">
+         <div id="InnerTwo" class="h-[22px] border-[1px] border-gray-400 w-[22px] duration-500  absolute -top-[0px] rounded-full bg-white"></div>
+         </div>
+       <div class="">
+         <p>Show similar products</p>
+       <p>People can shop products similar to what's shown in this Pin using visual search <br>
+        Shopping recommendations aren't available for Idea ads and Pins with tagged <br> products or paid partnership label</p>
+       </div>
+        </div>
+                     </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    </div>
+  </div>
+</section>
+<script>
+ var Tags = document.getElementById('Tags').addEventListener('click', (e) => {
+    if (e.target.classList.contains('CloseTag')) {
+        e.target.closest('div.py-2').classList.add('hidden');
+    }
+});
+
+
+  var InnerOne =  document.getElementById('InnerOne')
+  var OuterOne = document.getElementById('OuterOne')
+  var InnerTwo =  document.getElementById('InnerTwo')
+  var OuterTwo = document.getElementById('OuterTwo')
+  var IsLeftOne=true;
+  var IsLeftTwo=true;
+  document.getElementById('OPTOne').addEventListener('click',()=>{
+    if(IsLeftOne){
+      InnerOne.style.left='6%';
+      OuterOne.style.background='black';
+      IsLeftOne=false;
+    }else{
+      InnerOne.style.left='0%';
+      OuterOne.style.background='#EFEFEF';
+      IsLeftOne=true;
+    }
+  });
+  document.getElementById('OPTTwo').addEventListener('click',()=>{
+    if(IsLeftTwo){
+      InnerTwo.style.left='6%';
+      OuterTwo.style.background='black';
+      IsLeftTwo=false;
+    }else{
+      InnerTwo.style.left='0%';
+      OuterTwo.style.background='#EFEFEF';
+      IsLeftTwo=true;
+    }
+  });
+var isAdvanceOPTShow=false;
+var AdvanceOpts=document.getElementById('AdvanceOpts');
+  function AdvanceOptsShow(){
+if(isAdvanceOPTShow){
+  AdvanceOpts.classList.add('hidden');
+  AdvanceOpts.classList.remove('block')
+  isAdvanceOPTShow=false;
+}else{
+  AdvanceOpts.classList.add('block');
+  AdvanceOpts.classList.remove('hidden')
+  isAdvanceOPTShow=true;
+}
+  };
+
+  document.getElementById('Upload').addEventListener('click', () => {
+    document.getElementById('FormClick').click();
+});
+
+
+
+  document.getElementById('FormClick').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const previewDiv = document.getElementById('Upload');
+        // Clear existing content
+        previewDiv.innerHTML = '';
+        
+        // Create an image element and set its src to the file data
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.borderRadius = '40px'; // Match the original style
+
+        // Append the image to the preview div
+        previewDiv.appendChild(img);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  });
+
+
+
+
+// use onclick attri on every icons later nmz wakfaaaaa 
+isMoreOptDivShow=false;
+var MoreOptDiv=document.querySelectorAll('.MoreOptDiv');
+function TripleDotsClick(i){
+  if(isMoreOptDivShow){
+    MoreOptDiv[i].classList.add('hidden');
+    MoreOptDiv[i].classList.remove('block');
+    isMoreOptDivShow=false;
+
+  }else{
+    MoreOptDiv[i].classList.add('block');
+    MoreOptDiv[i].classList.remove('hidden');
+    isMoreOptDivShow=true;
+  }
+  console.log(i);
+}
+
+var DropDownDiv = document.getElementById('DropDownDiv');
+  var DropDownInput = document.getElementById('DropDownInput');
+  IsDropDownShow=false;
+  const DropDown=()=>{
+     if(IsDropDownShow){
+      DropDownDiv.classList.add('hidden');
+      DropDownDiv.classList.remove('block');
+      IsDropDownShow= false;
+    }else{
+      DropDownDiv.classList.add('block');
+      DropDownDiv.classList.remove('hidden');
+      IsDropDownShow= true;
+      DropDownDiv.addEventListener('click',(e)=>{
+        var SelectText=e.target.innerText;
+        DropDownInput.value=SelectText;
+        DropDownDiv.classList.add('hidden');
+        DropDownDiv.classList.remove('block');
+        IsDropDownShow= false;
+      })
+    }
+  }
+  document.getElementById('ResetBtn').addEventListener('click', () => {
+  document.getElementById('Form').reset(); 
+});
+
+
+</script>
+</body>
+</html>

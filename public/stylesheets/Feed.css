@@ -1,0 +1,64 @@
+*{
+  padding: 0;
+  margin: 0;
+box-sizing: border-box;
+}
+html,body{
+  height: 100%;
+  width: 100%;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.Main{
+  height: 100vh;
+  width: 100%;
+  background: #5a565600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.RegisterContainer{
+  width: 60%;
+  height: 100vh;
+  background: white;
+}
+.container {
+  column-count: 5; /* Number of columns */
+  column-gap: 10px; /* Gap between columns */
+  padding: 20px;
+  /* max-width: 1200px; */
+  margin: 0 auto;
+}
+
+.card {
+  background-color: rgba(28, 207, 147, 0.692);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow:hidden;
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 10px; 
+  break-inside: avoid; 
+  display: inline-block;
+  width: 100%;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+.card:hover .overLay{
+  opacity: 1;
+  transition: 1.2s;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+      column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+      column-count: 1;
+  }
+}

@@ -1,0 +1,95 @@
+<% include  ./partials/header.ejs %>
+  
+<section id="MainSection" class="HeroSection w-full  ">
+<nav style="z-index: 100;" class="w-full  px-6 fixed top-0 py-5 bg-white block   md:flex justify-between items-center">
+  <div class="LeftNav flex items-center gap-6">
+    <a href="">
+    <div class="flex justify-center items-center gap-1">
+      <img class="inline" src="../images/Logo.svg" alt="">
+      <span class="font-[600] text-[#E60023] text-[19px]">PinsYourInterest</span>
+    </div>
+  </a>
+    <div>
+      <a class="font-[600]" href="#">Watch</a></div>
+      <a class="font-[600]" href="#">Explore</a></div>
+  </div>
+  <div class="RightNav -md:ml-10 ml-0 mt-8 md:mt-0 flex items-center gap-8">
+    <div>
+      <a class="font-[600] " href="#">About</a>
+    </div>
+    <div>
+      <a class="font-[600]" href="#">Buiness</a>
+    </div>
+    <div>
+      <a class="font-[600]" href="#">Blog</a>
+    </div>
+    <div class="flex gap-1">
+    <div>
+      <a href="#MainSection">
+<button onclick="ShowLoginForm()" class="py-2 duration-500 hover:scale-[0.92] rounded-full px-4 text-white font-semibold bg-[#E60023]">Log in</button>
+</a>
+    </div>
+    <div>
+      <a href="#MainSection">
+      <button onclick="ShowSignInForm()" class="py-2 duration-500 hover:scale-[.95] hover:shadow-md rounded-full px-4 text-black font-semibold bg-[#E9E9E9]">Sign up</button>
+    </a>
+    </div>
+  </div>
+  </div>
+</nav>
+</section>
+
+
+<!-- Hero section as a seprate file -->
+<section class=''>
+  <% include ./partials/HeroSection.ejs %>
+</section>
+
+<!-- login form setion here -->
+<section id="Zindex" class="w-[100%] h-[100vh] -z-10  absolute top-[0px]">
+<div id="LoginForm" class="hidden">
+  <span>
+    <img onclick="HideLoginForm()" class=" hover:bg-gray-300 cursor-pointer duration-200 p-1 rounded-full absolute  top-[10%] right-[15px]" src="../images/Cut.svg" alt="">
+  </span>
+ 
+  <% include ./login.ejs  %>
+
+</div>
+</section>   
+<!-- sign up form here -->
+<section id="ZindexOfSI" class="w-[100%] h-[100vh] -z-10  absolute top-[0px]">
+  <div id="SignInForm" class="hidden">
+    <span>
+      <img onclick="HideSignInForm()" class=" hover:bg-gray-300 cursor-pointer duration-200 p-1 rounded-full absolute top-[10%] right-[15px]" src="../images/Cut.svg" alt="">
+    </span>
+    <% include ./SignIn.ejs  %>
+  </div>
+  </section>  
+ <script>
+  var LoginForm=document.getElementById('LoginForm');
+  var Zindex=document.getElementById('Zindex');
+  var MainSection=document.getElementById('MainSection');
+  var SignInForm=document.getElementById('SignInForm');
+  var ZindexOfSI=document.getElementById('ZindexOfSI');
+  function ShowLoginForm(){
+    LoginForm.style.display='block';   
+    Zindex.style.zIndex='100';   
+    // MainSection.style.minHeight='100vh';
+  }
+  
+  function ShowSignInForm(){
+    SignInForm.style.display='block';   
+    ZindexOfSI.style.zIndex='100';   
+    // MainSection.style.minHeight='100vh';
+  }
+  function HideLoginForm(){
+    LoginForm.style.display='none';   
+    Zindex.style.zIndex='0';   
+  }
+  function HideSignInForm(){
+    SignInForm.style.display='none';   
+    ZindexOfSI.style.zIndex='0';   
+  }
+ </script>
+</body>
+</html>

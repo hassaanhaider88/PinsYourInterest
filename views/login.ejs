@@ -1,0 +1,48 @@
+<% include  ./partials/header.ejs %>
+  <section class="Parent w-full min-h-screen bg-[#0002] flex flex-col justify-center items-center">
+    
+  <div class="Main my-3 h-[120vh] bg-white md:py-10 md:px-16 py-1 sm:px-4 px-0 rounded-[50px] shadow-lg" >
+    <div class="relative  text-center RegisterContainer">
+      <img class="inline -mt-5 pb-6" src="../images/Logo.svg" alt="">
+       <h1 class="text-3xl font-semibold">Welcome to Pinterest</h1>
+       <p class="font-[400] text-nowrap">Find new ideas to try</p>
+      <form action="/user/login" method="POST" class="form-group">      
+        <label class="text-left -mb-5 block" for="Email">Email</label>  <br>
+        <input  type="email" class="form-control border border-2 border-gray-400 w-full rounded-[22px] outline-sky-500 py-3 pl-2" required name="email" placeholder="Email"></input> <br />  
+        
+        <label  class="text-left -mb-5 block" for="Password">Password</label>  <br>
+        <input type="password" class="form-control border border-2 border-gray-400 w-full rounded-[22px] outline-sky-500 py-3 pl-2" required name="password"  placeholder="Enter Password"></input> <br />
+        <a href="/forgotpas" class="block py-1 font-semibold hover:underline duration-200 text-left">Forgot your password?</a>
+        <input class="form-control bg-[#E60023] mt-2 mb-2 font-[600] hover:bg-red-600 duration-500 cursor-pointer text-white w-full rounded-[22px] py-2" type='submit' value="Continue"/>
+      </form>
+      <h4 class="font-semibold my-2">OR</h4>
+      <div>
+      </div>
+      <div style="background: #0074E8;" class=" mt-2 text-white flex  mb-2 font-[600]  border border-2 border-gray-200 bg-gray-100 shadow-md hover:shodow-lg  cursor-pointer text-black w-full rounded-[22px] py-2 FaceBookBtn">
+        <button class="facebook-btn">
+          <img class="inline ml-2" src="../images/Facebook.svg" alt="">
+          <p class="inline ml-8">Countinue with Facebook</p>
+        </button>
+      </div>
+      <div  class=" mt-2 mb-2 font-[600] hover:bg-white border border-2 border-gray-200 bg-gray-100 shadow-md hover:shodow-lg cursor-pointer text-black w-full rounded-[22px] py-1 GoogleBtn">
+      <button class="google-btn">
+        <p class="inline">Login with Google</p>
+        <img class="inline ml-10" src="../images/Google.svg" alt="">
+      </button>
+    </div>
+      
+       <div class="my-5 text-center text-[14px]">
+              <p class="text-[14px]">By continuing, you agree to Pinterest's </p>
+                  <b class="font-[700]">Terms of Service</b> <p class="text-[14px] inline">and acknowledge you've read </p> <br> our 
+                  <b>Privacy Policy. Notice at collection.</b></div>
+                 <p class="my-5 text-center text-[13px]"> Not on Pinterest yet?  <a href="/user/signin">Sign up</a></p>
+
+<div class="text-center my-5 text-center text-[13px] ">Are you a business?
+ <a href="/user/signin">Get started here!</a></div>
+</div>
+</div>    
+    <script>
+    </script>
+</section>      
+</body>
+</html>

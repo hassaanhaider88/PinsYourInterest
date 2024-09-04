@@ -1,0 +1,81 @@
+<section id="LandingPage" class="w-full min-h-screen ">
+<% include ./NavBar.ejs  ,{UserWhichLoggIn : UserWhichLoggIn,IsHome:true , IsCreate:false} %>
+<!-- feed start from here -->
+<div class="w-full mt-[130px]  px-10  flex gap-5 justify-between">
+<div class="container">
+  <% Data.forEach((pin,idx)=>{  %>
+    <div class="card bg-none " style="height: <%=pin.ImgHeight%>">
+      <img class="w-full h-full bg-c" src="<%=pin.imageUrl%>" alt="">
+      <div style="display: none;" class='moreOptions  absolute -bottom-[45%] p-2 rounded-lg z-50 -right-12 bg-white'>
+        <div class='w-full p-2'>
+          <p class='text-sm font-[400] text-nowrap '>This Pin was inspired by your recent activity.</p>
+        </div>
+        <div class='w-full hover:bg-[#E9E9E9] text-[17px] duration-500 font-semibold  rounded-lg p-2 text-left  mb-2'>
+          <h1>Hide Pin</h1>
+        </div>
+        <div class='w-full hover:bg-[#E9E9E9] text-[17px] duration-500 font-semibold  rounded-lg p-2 text-left mb-2' >
+          <h1>Download Image</h1>
+        </div>
+        <div class='w-full hover:bg-[#E9E9E9] text-[17px] duration-500 font-semibold  rounded-lg p-2 text-left mb-2'>
+          <h1>Report Pin</h1>
+        </div>
+      </div>
+    <a href="/pin/<%=pin._id%>" method='get'>
+      <span  style="background:rgba(0, 0, 0, 0.5);" class="overLay opacity-0 p-6  flex flex-col justify-between items-end w-full  z-20   h-full absolute bg-[rgba(0, 0, 0, 0.308)] top-0 right-0">
+      <div class="saveBtn">
+        <button data-postid="<%=pin._id%>" class="py-2 duration-500 hover:scale-[.96] rounded-full px-4 text-white font-semibold bg-[#E60023]">Save</button>
+      </div>
+      <div class="UploadAnd mb-3 mr-2 flex justify-center items-center gap-2">
+        <div class="w-[30px] h-[30px] flex justify-center items-center p-1 bg-white rounded-full"><i class="text-xl font-semibold ri-upload-2-fill"></i></div>
+        <div onclick="ShowMoreOptions(<%=idx%>)" class="w-[30px] h-[30px] flex justify-center items-center p-1 bg-white rounded-full"><i class="text-xl font-semibold ri-more-line"></i></div>
+      </div>
+      </span>
+    </a>
+      </div>
+   
+  <% }) %>
+
+
+  
+
+</div>
+  </div>
+<!-- Feed Section ends Form Here -->
+  
+</section>
+<script>
+
+var AllMoreOptionsDiv = document.querySelectorAll('.moreOptions');
+
+var IsShow = false;
+function ShowMoreOptions(i) {
+    if (IsShow) {
+        AllMoreOptionsDiv[i].style.display = 'none'; 
+        IsShow = false;
+    } else {
+        AllMoreOptionsDiv[i].style.display = 'block'; 
+        IsShow = true;
+        console.log(AllMoreOptionsDiv[i])
+    }
+
+}
+
+
+// Select the save button
+const saveBtn = document.querySelector('.saveBtn');
+const saveBtns = document.querySelectorAll('.saveBtn button'); // Select all buttons inside saveBtn divs
+saveBtns.forEach(function(saveBtn) {
+    saveBtn.addEventListener('click',(event)=> {
+        event.stopPropagation();
+        event.preventDefault();
+        const postId = saveBtn.getAttribute('data-postid');
+          const url = `/user/savedpost/${postId}`;
+        window.location.href =  url ;
+       saveBtn.innerHTML='Saved'
+    });
+});
+
+
+</script>
+</body>
+</html>

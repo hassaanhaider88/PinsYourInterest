@@ -1,0 +1,130 @@
+<% include ./header.ejs %>
+<div class="Main  h-[38vh]   w-full pt-10 flex items-center justify-center">
+  <div class="Center relative  flex justify-center items-center flex-col">
+  <h1 class="text-6xl font-[600]">Get your next</h1>
+  <div class="CardContainer  flex flex-col gap-5 no-wrap py-5">
+<div class="absolute -left-[15%]" id="FirstSlide">
+  <p class="text-5xl   py-1 text-[#4E3800]   text-nowrap font-[600]">weeknight dinner idea</p>
+</div>
+<div class="absolute -left-[10%]" id="SecondSlide">
+  <p class="text-6xl    py-1  text-[#618C7B] text-nowrap font-[600]">home decor idea</p>
+</div>
+<div class="absolute -left-[10%]" id="ThirdSlide">
+  <p class="text-6xl    py-1  text-[#0076D3] text-nowrap font-[600]">new look outfit</p>
+</div>
+<div class="absolute -left-[10%]" id="FourSlide">
+  <p class="text-6xl    py-1 text-[#407A57]  text-nowrap font-[600]">green thumb idea</p>
+</div> 
+  </div>
+
+  <div class="Navigator absolute -bottom-[100px] flex gap-3  pt-3">
+    <button onclick="FirstImgSlide()" id="FirstSlideBtn" class="w-3 cursor-pointer duration-500 h-3 bg-[#4E3800] rounded-full"></button>
+    <button onclick="SecondImgSlide()" id="SecondSlideBtn" class="w-3 cursor-pointer duration-500 h-3 bg-[#E1E1E1] rounded-full"></button>
+    <button onclick="ThirdImgSlide()" id="ThirdSlideBtn" class="w-3 cursor-pointer duration-500 h-3 bg-[#E1E1E1] rounded-full"></button>
+    <button  onclick="FourImgSlide()"id="FourSlideBtn" class="w-3 cursor-pointer duration-500 h-3 bg-[#E1E1E1] rounded-full"></button>
+  </div>
+</div>
+</div>
+
+<div class="ImgesContainer flex pt-8 items-end gap-3 justify-between">
+
+  <div id="BtmImgAnimOne" class=" -bottom-[200px] md:block hidden opacity-0 w-[150px] bg-no-repeat  object-fill bg-[url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWKMJTIU4JjYJxSr6K4kBYefjmRNBs92MqatOZ64lKCQpcKIL3vTA6sRiuEwpgXIrijtc&usqp=CAU')] relative shrink-0 h-[400px] -left-6 rounded-[30px] overflow-hidden "></div>
+
+<div id="BtmImgAnimTwo" class=" -bottom-[150px] md:block hidden opacity-0 w-[200px] bg-no-repeat bg-center  object-fill bg-[url('https://i.pinimg.com/564x/33/06/19/330619f00ec91194d49140f4630340fe.jpg')] bg-no-repeat  object-fill  relative shrink-0 -left-3  h-[350px] rounded-[30px] overflow-hidden"></div>
+
+<div id="BtmImgAnimThree" class=" -bottom-[150px] opacity-0 w-[200px] bg-no-repeat  object-fill bg-[url('https://i.pinimg.com/550x/a7/87/20/a78720c39a39ac50a2856420d636d113.jpg')] relative shrink-0 -left-3  h-[300px] rounded-[30px] overflow-hidden"></div>
+
+<div  class="w-[200px]  flex justify-center items-center relative shrink-0  h-[400px]">
+  <a href="#Footer">
+  <i id="DownArrow" class=" text-5xl font-[300] p-1 rounded-full bg-[#4E3800] text-white  ri-arrow-drop-down-line"></i>
+</a>
+</div>
+
+
+<div id="BtmImgAnimFour" class=" -bottom-[150px] opacity-0 w-[200px] bg-no-repeat  object-center object-cover bg-[url('https://i.pinimg.com/236x/f4/dc/58/f4dc58f3bddf1c5b5249511820246df8.jpg')] relative shrink-0  h-[300px] rounded-[30px] overflow-hidden"></div>
+  
+<div id="BtmImgAnimFive" class=" -bottom-[150px] md:block hidden opacity-0 w-[200px] bg-no-repeat  object-fill bg-[url('https://i.pinimg.com/564x/6a/ea/1c/6aea1c0bc96840a03644ed7b460fac9e.jpg')] relative shrink-0  h-[350px] rounded-[30px] overflow-hidden"></div>
+  
+<div id="BtmImgAnimSix" class=" -bottom-[200px] md:block hidden opacity-0 w-[200px] bg-no-repeat  object-fill bg-[url('https://i.pinimg.com/236x/7f/c8/1e/7fc81ec2166365721b8fd0d2f875671d.jpg')] relative shrink-0  h-[400px] rounded-[30px] overflow-hidden"></div>
+
+</div>
+
+
+<section style="box-shadow: 0px -100px 120px rgba(255,255,255,0.99);" class="w-full min-h-screen  bg-[#FFFD92] min-h-[120vh] z-20 relative -mt-20">
+  <% include ./HeroSection2.ejs %>
+</section>
+ 
+<section class="w-full min-h-screen bg-[#DAFFF6] ">
+<div class="w-full h-full md:flex block justify-center items-center">
+    <div class="md:w-1/2 w-full text-center flex justify-center pt-3   items-center flex-col">
+      <h1 class="text-6xl mt-2 font-bold text-[#006B6C]">Seve ideas you like</h1>
+      <p class=" text-center py-4 text-2xl text-[#006B6C] font-[400] text-nowrap">
+        Collect your favorites so you can <br> get back to them later.
+      </p>
+      
+  <button onclick="ShowLoginForm()" class="py-3 duration-500 hover:scale-[0.92] rounded-full px-4 text-white font-semibold bg-[#E60023]"><a href="#">Explore</a></button>
+
+  
+</div>
+    <div class="text-white LeftImgContainer md:w-1/2 w-full text-center mt-4 md:mt-0 min-h-[120vh] px-7  relative z-10">
+      <span id="ImgNo1" class=" bg-cover bg-[url('https://s.pinimg.com/webapp/future-home-vibes-adb19e98.png')] font-semibold text-nowrap  text-6xl 
+      absolute flex flex-col justify-center items-center rounded-[100px] w-[400px] h-[450px]  p-10 top-0 left-2">
+        <p >Fern future</p>
+        <p >home vibes</p>
+        <div class="absolute flex  justify-start ml-20 w-full  items-center gap-3 bottom-[4%]">
+        <span class="InnerImgs bg-cover bg-[url('https://s.pinimg.com/webapp/future-home2-31c812cc.png')] flex justify-center items-center block w-[80px] rounded-[30px] h-[120px]  "></span>
+        <span class="InnerImgs bg-cover bg-[url('https://s.pinimg.com/webapp/future-home1-b8bc36e8.png')] flex justify-center items-center block w-[80px] rounded-[30px] h-[120px]  "></span>
+        <span class="InnerImgs bg-cover bg-[url('https://s.pinimg.com/webapp/future-home3-037e8d49.png')] flex justify-center items-center block w-[80px] rounded-[30px] h-[120px]  "></span>
+      </div>
+      </span>
+      <span id="ImgNo2" class="bg-cover bg-[url('https://s.pinimg.com/webapp/scandinavian-bedroom-696dfba5.png')] absolute flex justify-center items-end rounded-[45px] 
+      w-[200px] pb-5 text-2xl  font-semibold h-[220px] right-0 top-0">
+    <p>My <br>Scandinavian <br> bedroom </p>
+    </span>
+      <span id="ImgNo3" class="bg-cover bg-[url('https://s.pinimg.com/webapp/deck-of-dreams-205a139e.png')] absolute flex justify-center items-end pb-3 font-semibold text-xl text-nowrap rounded-[45px]  p-10 top-[45%] right-[5%] w-[160px] h-[160px] " >
+<p>The deck of <br> my dream</p>
+      </span>
+      <span id="ImgNo4" class="bg-cover bg-[url('https://s.pinimg.com/webapp/serve-my-drinks-4de83489.png')] absolute flex justify-center items-end text-nowrap rounded-[45px]  p-10 bottom-10 left-[25%] w-[200px] pb-5 text-3xl pb-3  font-semibold h-[220px]">
+        <p>Serve my <br>drinks in</p>
+      </span>
+      <span id="ImgNo5" class="bg-cover bg-[url('https://s.pinimg.com/webapp/bathroom-upgrade-02599fd4.png')] absolute flex justify-center items-end   rounded-[45px]  p-10 bottom-5 right-[2%] w-[200px] pb-5 text-3xl pb-3  font-semibold h-[160px]">
+      <p>Our <br> rooms </p>
+      </span>
+    </div>
+</div>
+</section>
+
+<section id="BgwithOverlay" class=" relative w-[100vw] bg-[url('../images/BgImg.png')] min-h-[100vh] ">
+  <div class="w-full h-full  opacity-[0.55] z-10  justify-center items-center absolute bg-[#382F29]"></div>
+  <span>
+    <a href="#MainSection">    
+      <div style="z-index: 60;" class="  p-5  rotate-[180deg]  right-[50%] flex justify-center items-center absolute shrink-0  ">
+      <i class=" text-5xl font-[300] p-1 rounded-full bg-[#9C0343] text-white  ri-arrow-drop-down-line"></i>
+      </div>
+    </a> 
+  </span>
+<div class="w-[100vw] z-20 relative  block md:flex justify-center items-center">
+<div class="flex md:w-1/2 w-full  text-center justify-center items-center">
+<p class="text-7xl mt-20 md:mt-0 text-white text-nowrap font-[500]">Sign up to <span class="block py-3" > get your</span> <span class="block py-3">ideas</span></p>
+</div>
+<div class="z-20 md:w-1/2 w-full text-center relative font-semibold">
+<%- include ../SignIn.ejs %>
+</div>
+</div>
+</section>
+<div id="Footer" class="text-center py-2 text-[14px] flex gap-2 justify-center items-center>
+  <a href="#" class="hover:underline">Terms of Service</a>
+  <a href="#" class="hover:underline">Privacy Policy</a>
+  <a href="#" class="hover:underline">Help</a>
+  <a href="#" class="hover:underline">Iphone app</a>
+  <a href="#" class="hover:underline">Android app</a>
+  <a href="#" class="hover:underline">User</a>
+  <a href="#" class="hover:underline">Collections</a>
+  <a href="#" class="hover:underline">Shopping</a>
+  <a href="#" class="hover:underline">Todays</a>
+  <a href="#" class="hover:underline">Experts</a>
+  <a href="#" class="hover:underline">Watch</a>
+  <a href="#" class="hover:underline">Shop</a>
+</div>
+</body>
+</html>

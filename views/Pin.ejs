@@ -1,0 +1,505 @@
+<% include ./partials/header.ejs %>
+<% include  ./NavBar.ejs ,{UserWhichLoggIn:UserWhichLoggIn,IsHome:false , IsCreate:false} %>
+<section class="relative w-full min-h-[100vh] mt-[90px] flex justify-center items-center ">
+<a href="/">
+  <div class="fixed  text-2xl left-3 top-32">
+    <i class="font-bold ri-arrow-left-line"></i> <p class="inline ml-3">For you</p>
+  </div>
+</a>
+
+<div id="PinContainer" class="w-[75%] h-[90vh] relative flex overflow-hidden  rounded-[30px] ">
+
+<div id="PinPic" class="w-1/2  bg-black">
+          <img class="w-full h-full" src="<%=SltPin[0].imageUrl %>" alt="">
+</div>
+
+<div id="PinContent"  class="w-1/2 ">
+<!-- header div goes here  -->
+  <div id="HeaderDivInner" class="w-full py-2  flex items-center sticky top-0">
+    <!-- left likes waghera etc -->
+    <div class="w-1/2 flex gap-2 items-center">
+      <div id="HeartEmj" class="w-[50px] h-[50px] flex justify-center items-center duration-500 cursor-pointer hover:bg-gray-300 rounded-full">
+        <i class="text-[26px] ri-heart-3-line"></i>
+      </div>
+      <div class="cursor-pointer"><p><%=SltPin[0].NumOfLikes %></p></div>
+      <div id="ShareBtn" class="w-[50px] h-[50px] flex justify-center items-center duration-500 cursor-pointer hover:bg-gray-300 rounded-full">
+        <i class="text-[26px] ri-upload-2-fill"></i>
+      </div>
+      <div id="UploadBtn" class="w-[50px] h-[50px] flex justify-center items-center duration-500 cursor-pointer hover:bg-gray-300 rounded-full">
+        <i class="text-[26px] ri-more-fill"></i>
+      </div>
+    </div>
+    <!-- profile and save btn  -->
+
+    <div class="w-1/2 flex mr-3 gap-3 justify-end items-center">
+      <div class="flex">
+        <p>Profile</p>
+     <div id="ProfileInfo" class="w-[20px] h-[20px] flex justify-center items-center duration-500 cursor-pointer ">
+        <i class="text-3xl font-semibold mt-2 text-[#767676] ri-arrow-drop-down-line"></i>
+    </div>
+  </div>
+         <p id="Save" class="py-2 px-3 w-fit  flex gap-1 bg-[#B60000] rounded-full text-white font-semibold">Save</p>
+    </div>
+</div>
+
+<!-- the invisible divs which are show on the basis of some conditions or events are goes here  -->
+<div id="Emojis" class="flex hidden gap-1 absolute bg-white rounded-[10px] shadow-lg py-2  " >
+  <div class="w-[40px] h-[40px] cursor-pointer  duration-500 relative hover:bottom-2 ">
+    <img class="w-full h-full" src="../images/Dollar-E.svg" alt="">
+  </div>
+  <div class="w-[40px] h-[40px] cursor-pointer  duration-500 relative hover:bottom-2 ">
+    <img class="w-full h-full" src="../images/Glasses-E.svg" alt="">
+  </div>
+  <div class="w-[40px] h-[40px] cursor-pointer  duration-500 relative hover:bottom-2 ">
+    <img class="w-full h-full" src="../images/Good-E.svg" alt="">
+  </div> 
+  <div class="w-[40px] h-[40px] cursor-pointer  duration-500 relative hover:bottom-2 ">
+    <img class="w-full h-full" src="../images/Heart_eye-E.svg" alt="">
+  </div >
+  <div class="w-[45px] h-[45px] cursor-pointer  duration-500 relative hover:bottom-2 ">
+    <img  class="w-full h-full" src="../images/Bad-E.svg" alt="">
+  </div>
+</div>
+
+<!-- Links div         -->
+<div id="ShareDiv" class="absolute py-10 px-10 hidden  bg-white flex flex-col gap-3 shadow-lg rounded-[15px] right-[30%]  top-[14%]">
+  <p class="text-[13px] text-center">Share</p>
+  <div id="SocialIcons" class="flex justify-between items-center px-1">
+    <div id="CopyLink" class="w-[50px] h-[50px] flex justify-center items-center bg-[#E2E2E2] rounded-full">
+      <i class="cursor-pointer text-3xl ri-link"></i>
+    </div>
+    <div class="w-[50px] h-[50px] flex justify-center items-center  rounded-full" id="Whatsapp" >
+      <i class="cursor-pointer text-[#25D366] text-5xl ri-whatsapp-fill"></i>
+    </div>
+    <div class="w-[50px] h-[50px] flex justify-center items-center border-[1px] border-black  rounded-full" id="Messenger">
+      <i class="cursor-pointer text-[#D343BB] text-3xl ri-messenger-fill"></i>
+    </div>
+    <div class="w-[50px] h-[50px] flex justify-center items-center  rounded-full" id="Facebook">
+      <i class="cursor-pointer text-5xl text-[#1877F2] ri-facebook-circle-fill"></i>
+    </div>
+  </div>
+  <hr class="mt-8">
+  <div id="SearchBar">
+    <div id="SearchDiv" class="px-2 border-[1px] border-[#E1E1E1] mt-3 rounded-full overflow-hidden w-full items-center  flex">
+      <div id="SearchIcon" class="">
+        <i class="text-[#767676] font-[500] text-[20px] ri-search-line"></i>
+      </div>
+      <div style="width: 270%;"  id="SearchArea">
+        <input  class=" w-[100%]   outline-none p-[12px]" type="search" placeholder="Search by name or email">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- More option div  -->
+<div id="MoreOptDiv" class="hidden w-fit py-2 px-3 absolute bg-white right-[20%] top-[12%]  rounded-[10px] shadow-lg">
+    <div>
+    <p class="py-2 pl-3 cursor-pointer rounded-[15px] duration-200 hover:bg-[#E2E2E2]">
+      <a href="#" download="<%= SltPin[0].imageUrl %>">Download Image</a>
+    </p>
+    </div>
+    <div>
+      <p class="py-2 pl-3 cursor-pointer rounded-[15px] duration-200 hover:bg-[#E2E2E2]">
+      <a href='/'>Hide Pin</a>
+      </p>
+    </div>
+    <div>
+      <p class="py-2 pl-3 cursor-pointer rounded-[15px] duration-200 hover:bg-[#E2E2E2]">Report Pin</p>
+    </div>
+    <div>
+      <p class="py-2 pl-3 cursor-pointer rounded-[15px] duration-200 hover:bg-[#E2E2E2]">Get Pin embed code</p>
+    </div>
+</div>
+  
+<!-- user profile which create the pin  -->
+<div class="flex justify-between px-6  mt-2 items-center">
+  <a href="/user/<%= CreatedBy._id %>">
+    <div id="PhotoCO" class="flex  gap-2   items-center">
+      <% if (CreatedBy && CreatedBy.profileImgUri) { %>
+              <img class="w-[70px] h-[70px] rounded-full bject-cover" src="<%= CreatedBy.profileImgUri %>" alt="Profile Image">
+      <% } else { %>
+            <div id="DP" class="bg-gray-300 w-[70px] rounded-full flex justify-center items-center h-[70px]">
+                  <span class=""><%- CreatedBy.profilePicture %></span>
+            </div>    
+        <% } %>
+        <div>
+          <p><%= CreatedBy.username %></p>
+          <p class="text-[13px]"><%- CreatedBy.followers.length %> followers</p>
+        </div>
+      </div>
+  </a>
+    
+<div>
+  <% if(IsAuth) { %>
+    <a href="/user/<%=CreatedBy._id%>">
+      <button id="Follow" class="py-3 px-4 rounded-full border-[1px] border-[#E2E2E2]">
+        View Profile
+      </button>
+     </a>
+    <% } else { %>
+      <a href="/pin/follow_user/<%= CreatedBy._id %>?pinId=<%= pinId %>">
+       <button id="Follow" class="py-3 px-4 rounded-full border-[1px] border-[#E2E2E2]">
+         <% if(IsFollow === false || IsFollow === undefined){ %>
+           follow
+         <% } else { %> 
+           following
+        <% } %>
+       </button>
+      </a>
+<% } %>
+ </div>
+    
+  </div>
+
+
+ <!-- comments div start here  -->
+<div id="CommentBtn" class="flex cursor-pointer  justify-between text-xl items-center px-6 mt-10">
+  <h1>Comments</h1>
+  <i class="text-3xl font-semibold mt-2 cursor-pointer text-[#767676] ri-arrow-drop-down-line"></i>
+</div>
+
+<!-- user's comments div container code will goes here  -->   
+<!-- UCP User Comment Profile Image  -->
+<div id="CommentsContainer" class="flex h-[43vh] overflow-x-hidden  outline-none border-none overflow-scroll flex-col gap-3">
+
+  <% if(Comments.length < 1){ %>
+ <div class="w-full h-full flex justify-center items-center">
+  <h1 >No Comment yet Be the first To Comment ....</h1>
+ </div>
+ <% } else {%>
+  <% Comments.forEach((comment,idx)=>{ %>
+    <div class="Comments relative flex items-center px-3 gap-2">
+      <div id="UCPI " >
+        <%- // console.log(comment) %>
+        <a href="/user/<%= comment.username._id %>">
+          <div id="PhotoCO" class="flex gap-2 items-center">
+            <div id="DP" class="w-[60px] h-[70px] rounded-full overflow-hidden">
+              <span><%- comment.username.profilePicture %> </span>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div id="UCInfo">
+        <p class="inline font-semibold"><%= comment.username.username %></p> <p class="inline text-[16px]"><%= comment.userMessage %></p>
+        <div class="flex gap-3">
+          <div  class="comment-time text-gray-400 text-[16px]"><%- newCommentsTime[idx] %></div>
+          <div data-replay-to="<%=comment.username.username %>" class="ReplyBtn text-gray-400 cursor-pointer text-[16px]">Reply</div>
+          <div class="w-[20px] h-[20px] flex justify-center items-center cursor-pointer"><i class="text-[20px] Heart ri-heart-3-line"></i></div>    <!--ri-heart-3-fill -->
+          <div onclick="ShowDel(<%=idx%>)" class="w-[30px]  h-[30px] flex justify-center items-center cursor-pointer">
+            <i class="text-[20px] relative ri-more-fill"></i>
+          </div>
+          <p></p>
+        </div>
+
+      </div>
+    </div>
+  <% }) %>
+
+ <% } %>
+</div>
+
+<!-- the emojis section that contains emojies  -->
+<div id="EmojiDiv" class='absolute hidden top-[27%] w-1/2 z-50'>
+  <emoji-picker id="EmojiContainer"></emoji-picker>
+  </div>
+
+
+ 
+<!-- the input where user can comment will be code goes here  -->
+<div>
+  <div id="CommentBar" class="absolute px-5 bottom-5 w-1/2">
+    <div id="commentDiv" class="px-2 border-[1px] border-[#E1E1E1] mt-3 rounded-full overflow-hidden w-full items-center flex">
+      <div style="width: 270%;"  id="SearchArea">
+        <form id="CommentForm" method="post" action="/pin/comment?pinId=<%=SltPin[0]._id %>">
+          <input id="Search" value='' spellcheck="false" name="Comment" class=" w-[100%]   outline-none p-[12px]" type="search" placeholder="Add a comment">
+        </form>
+      </div>
+      <div id="EmojiIcon" class="mr-2 w-[60px] h-[60px] cursor-pointer">
+        <img class="w-full h-full " src="../images/Comment-E.svg" alt="">
+      </div>
+      <!-- Send icon will be shown when suer just write atleast one charactor   -->
+      <div id="Send" class="mr-2 w-[50px] hidden h-[50px]  flex justify-center items-center cursor-pointer">
+       <i class=" text-2xl text-blue-500 ri-send-plane-fill"></i>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+
+</div>
+
+
+</div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/dist/date-fns.min.js"></script>
+<script>
+//   var HeartEmj=document.getElementById('HeartEmj');
+//   var Emojis=document.getElementById('Emojis');
+//   var IsEmojisShow=false;
+//   HeartEmj.addEventListener('click',()=>{
+//     if(IsEmojisShow){
+//       Emojis.classList.add('hidden');
+//       Emojis.classList.remove('block')
+//       IsEmojisShow=false;
+//     }else{
+//       Emojis.classList.add('block');
+//       Emojis.classList.remove('hidden')
+//       IsEmojisShow=true;
+//       Emojis.addEventListener('click',(e)=>{
+//  let SlecetImg=e.target.getAttribute('src');
+//         HeartEmj.innerHTML=`<div class="w-[40px] h-[40px] cursor-pointer  duration-500 ">
+//               <img  class="w-full h-full" src=${SlecetImg} alt="">
+//             </div> `;
+//        fetch('/pin/inc_likes', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             imgSrc: SlecetImg // You can send any data you want with this request
+//         })
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         console.log('Success:', data); // Handle success
+//     })
+//       Emojis.classList.add('hidden');
+//       Emojis.classList.remove('block')
+//       IsEmojisShow=false;
+
+//       })
+//     }
+//   });
+
+
+var HeartEmj = document.getElementById('HeartEmj');
+var Emojis = document.getElementById('Emojis');
+var IsEmojisShow = false;
+
+// Event listener for HeartEmj click
+HeartEmj.addEventListener('click', () => {
+  if (IsEmojisShow) {
+    hideEmojis();
+  } else {
+    showEmojis();
+  }
+});
+
+// Event listener for Emojis click (set up once)
+Emojis.addEventListener('click', (e) => {
+  // Get the selected emoji image source
+  let SlecetImg = e.target.getAttribute('src');
+  if (!SlecetImg) return; // Avoid errors if clicked on something other than an image
+
+  // Set the inner HTML of HeartEmj
+  HeartEmj.innerHTML = `
+    <div class="w-[40px] h-[40px] cursor-pointer duration-500">
+      <img class="w-full h-full" src="${SlecetImg}" alt="">
+    </div>`;
+
+  // Make a POST request after setting the innerHTML
+  fetch('/pin/inc_likes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      imgSrc: SlecetImg // You can send any data you want with this request
+    })
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data); // Handle success
+    })
+    .catch((error) => {
+      console.error('Error:', error); // Handle error
+    });
+
+  // Hide emojis after selecting one
+  hideEmojis();
+});
+
+// Function to show emojis
+function showEmojis() {
+  Emojis.classList.add('block');
+  Emojis.classList.remove('hidden');
+  IsEmojisShow = true;
+}
+
+// Function to hide emojis
+function hideEmojis() {
+  Emojis.classList.add('hidden');
+  Emojis.classList.remove('block');
+  IsEmojisShow = false;
+}
+
+
+  var ShareDiv=document.getElementById('ShareDiv');
+  var isShareShow=false;
+  document.getElementById('ShareBtn').addEventListener('click',()=>{
+if(isShareShow){
+  ShareDiv.classList.add('hidden');
+  ShareDiv.classList.remove('block');
+  isShareShow=false;
+}else{
+  ShareDiv.classList.add('block');
+  ShareDiv.classList.remove('hidden');
+  isShareShow=true;
+}
+  });
+
+  var MoreOptDiv=document.getElementById('MoreOptDiv');
+  var IsMoreOptDiv=false;
+  document.getElementById('UploadBtn').addEventListener('click',()=>{
+    if(IsMoreOptDiv){
+      MoreOptDiv.classList.add('hidden');
+      MoreOptDiv.classList.remove('block');
+      IsMoreOptDiv=false;
+    }else{
+      MoreOptDiv.classList.add('block');
+      MoreOptDiv.classList.remove('hidden');
+      IsMoreOptDiv=true;
+    }
+  });
+
+  var CommentsContainer=document.getElementById('CommentsContainer');
+  var IsCommentsContainerShow= true; 
+
+  document.getElementById('CommentBtn').addEventListener('click',()=>{
+    if(IsCommentsContainerShow){
+      CommentsContainer.classList.add('hidden');
+      CommentsContainer.classList.remove('block');
+      IsCommentsContainerShow=false;
+    }else{
+      CommentsContainer.classList.add('block');
+      CommentsContainer.classList.remove('hidden');
+      IsCommentsContainerShow=true;
+    }
+  });
+
+  var EmojiDiv=document.getElementById('EmojiDiv');
+  var Send=document.getElementById('Send');
+    var CurrentVal='';
+    var IsEmojiDivShow=false;
+    var Search=document.getElementById('Search');
+  document.getElementById('Search').addEventListener('input',(e)=>{
+      // console.log(e.target.value)
+      if(e.target.value.length > 0){
+        Send.classList.add('block');
+        Send.classList.remove('hidden');
+        CurrentVal = e.target.value;
+      }else{
+      Send.classList.add('hidden');
+        Send.classList.remove('block');
+      }
+    })
+
+  document.getElementById('EmojiIcon').addEventListener('click',()=>{
+    if(IsEmojiDivShow){
+      EmojiDiv.classList.add('hidden');
+      EmojiDiv.classList.remove('block');
+      IsEmojiDivShow=false;
+    }else{
+      EmojiDiv.classList.add('block');
+      EmojiDiv.classList.remove('hidden');
+      IsEmojiDivShow=true;
+      document.querySelector('emoji-picker').addEventListener('emoji-click',(event)=>{
+       let SeletEmoji=event.detail.unicode;
+       let CurrentValSeletEmoji=CurrentVal+SeletEmoji;
+       Search.value=CurrentValSeletEmoji;
+      });
+    }
+  });
+
+  
+
+var Save=document.getElementById('Save');
+Save.addEventListener('click',()=>{
+
+  setTimeout(()=>{
+    Save.classList.remove('bg-[#B60000');
+    Save.classList.add('bg-black');
+    // console.log(Save)
+    Save.innerText='Saved'
+  },1000)
+});
+
+var Follow=document.getElementById('Follow');
+Follow.addEventListener('click',()=>{
+  window.location.href='';
+});
+
+
+
+document.getElementById('Send').addEventListener('click',()=>{
+  document.getElementById('CommentForm').submit();
+})
+
+var Heart = document.querySelectorAll('.Heart');
+
+// Check if there is any like state stored in localStorage and apply it
+Heart.forEach((heart, index) => {
+  // Generate a unique key for each heart element
+  const localStorageKey = `heart-like-${index}`;
+
+  // Check localStorage to set initial state
+  const isLiked = localStorage.getItem(localStorageKey) === 'true';
+// console.log(isLiked)
+  // Apply the stored state to the heart element
+  if (isLiked) {
+    heart.classList.remove('ri-heart-3-line');
+    heart.classList.add('ri-heart-3-fill');
+    heart.classList.add('text-red-600');
+  } else {
+    heart.classList.add('ri-heart-3-line');
+    heart.classList.remove('ri-heart-3-fill');
+    heart.classList.remove('text-red-600');
+  }
+
+  // Add click event listener to toggle like/unlike
+  heart.addEventListener('click', () => {
+    const currentState = localStorage.getItem(localStorageKey) === 'true';
+
+    if (currentState) {
+      heart.classList.add('ri-heart-3-line');
+      heart.classList.remove('ri-heart-3-fill');
+      heart.classList.remove('text-red-600');
+      localStorage.setItem(localStorageKey, 'false'); // Update localStorage
+    } else {
+      heart.classList.remove('ri-heart-3-line');
+      heart.classList.add('ri-heart-3-fill');
+      heart.classList.add('text-red-600');
+      localStorage.setItem(localStorageKey, 'true'); // Update localStorage
+    }
+  });
+});
+
+var IsShowDelBtn;
+var DeleteBtn =  document.querySelectorAll('.DeleteBtn');
+var ShowDel = (index) =>{
+if(IsShowDelBtn){
+  DeleteBtn[index].classList.remove('block')
+  DeleteBtn[index].classList.add('hidden');
+  IsShowDelBtn = false;
+}else{
+  DeleteBtn[index].classList.add('block')
+  DeleteBtn[index].classList.remove('hidden');
+  IsShowDelBtn = true;
+}
+}
+
+
+var ReplyBtn = document.querySelectorAll('.ReplyBtn');
+ReplyBtn.forEach((replyBtn)=>{
+    replyBtn.addEventListener('click',()=>{
+    var username = replyBtn.getAttribute('data-replay-to');
+    document.getElementById('Search').value = `reply to ${username} `;
+  })
+})
+
+
+</script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+</body>
+</html>
