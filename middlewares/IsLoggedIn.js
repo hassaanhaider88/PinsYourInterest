@@ -10,6 +10,7 @@ const isLoggedIn = async (req, res, next) => {
     var IsCreate =  false;
     if (!token) {
          res.render('index');
+           next();
     }else{
     try {
         var User = jwt.verify(token, process.env.JWT_SECT);
