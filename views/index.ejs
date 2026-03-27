@@ -2,9 +2,9 @@
 
   <section id="MainSection" class="HeroSection w-full  ">
     <nav style="z-index: 100;"
-      class="w-full  px-6 fixed top-0 py-5 bg-white block   md:flex justify-between items-center">
+      class="w-full  px-6 fixed top-0 py-5 bg-white block flex-row sm:flex-col  justify-between items-center">
       <div class="LeftNav flex items-center gap-6">
-        <a href="">
+        <a href="/">
           <div class="flex justify-center items-center gap-1">
             <img class="inline" src="../images/Logo.svg" alt="">
             <span class="font-[600] text-[#E60023] text-[19px]">PinsYourInterest</span>
@@ -16,7 +16,7 @@
         <a class="font-[600]" href="#">Explore</a>
       </div>
       </div>
-      <div class="RightNav -md:ml-10 ml-0 mt-8 md:mt-0 flex items-center gap-8">
+      <div id="RightNav" class="RightNav -md:ml-10 ml-0 mt-8 md:mt-0 sm:flex-row flex-col sm:flex hidden items-center flex items-center gap-8">
         <div>
           <a class="font-[600] " href="#">About</a>
         </div>
@@ -43,6 +43,9 @@
           </div>
         </div>
       </div>
+      <span class="sm:hidden text-center mt-4 text-lg cursor-pointer" id="MenuBtn">
+        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="30px" width="30px" xmlns="http://www.w3.org/2000/svg" class="copy-svg-injected"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M3 18h13v-2H3v2zm0-5h10v-2H3v2zm0-7v2h13V6H3zm18 9.59L17.42 12 21 8.41 19.59 7l-5 5 5 5L21 15.59z"></path></svg>
+      </span>
     </nav>
   </section>
 
@@ -53,5 +56,15 @@
   </section>
 
   </body>
+
+  <script>
+    const MenuBtn = document.getElementById('MenuBtn');
+    const RightNav = document.getElementById('RightNav');
+
+    MenuBtn.addEventListener('click', () => {
+      RightNav.classList.toggle('hidden');
+
+    });
+  </script>
 
   </html>
